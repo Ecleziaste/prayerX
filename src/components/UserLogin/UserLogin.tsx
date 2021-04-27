@@ -1,11 +1,12 @@
 import React from 'react';
 import {Form, Field} from 'react-final-form';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {TouchableOpacity, Button, StyleSheet, Text, View} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
 
 export const UserLogin: React.FC<Props> = () => {
   const onSubmit = (values: ValuesType) => {
     console.log(values.Login);
+    console.log(values.Password);
   };
 
   return (
@@ -13,7 +14,7 @@ export const UserLogin: React.FC<Props> = () => {
       <Form
         onSubmit={onSubmit}
         render={({handleSubmit}) => (
-          <View>
+          <View style={styles.formWrapper}>
             <Text style={styles.formTitle}>Please log in</Text>
             <Field name="Login">
               {prop => (
@@ -33,12 +34,21 @@ export const UserLogin: React.FC<Props> = () => {
                 />
               )}
             </Field>
-            <View style={styles.formButton}>
-              <Button onPress={handleSubmit} title="Submit"></Button>
+            <View>
+              <TouchableOpacity style={styles.formBtn} onPress={handleSubmit}>
+                <Text style={styles.formBtnText}> SUBMIT </Text>
+              </TouchableOpacity>
             </View>
           </View>
         )}></Form>
-      <Text>Some text</Text>
+      <View>
+        <Text>or</Text>
+      </View>
+      <View>
+        <TouchableOpacity style={styles.btnGuest} onPress={() => {}}>
+          <Text style={styles.btnGuestText}> Enter like Guest </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -46,33 +56,66 @@ export const UserLogin: React.FC<Props> = () => {
 const styles = StyleSheet.create({
   сontainer: {
     flex: 1,
-    flexDirection: 'column',
-    margin: 0,
+    // flexDirection: 'column',
+    marginTop: 0,
     padding: 5,
-    width: '100%',
+    justifyContent: 'center',
     alignItems: 'center',
   },
+  formWrapper: {
+    margin: 0,
+    paddingHorizontal: 20,
+    width: '100%',
+    justifyContent: 'center',
+  },
   formTitle: {
-    paddingHorizontal: 30,
-    paddingVertical: 10,
+    // top: 0,
+    marginBottom: 60,
+    // paddingVertical: 10,
     fontWeight: '500',
-    fontSize: 20,
+    fontSize: 34,
     textAlign: 'center',
   },
   formInput: {
     borderWidth: 2,
     borderColor: '#20232a',
     borderRadius: 6,
-    marginVertical: 5,
-    paddingHorizontal: 30,
-    paddingVertical: 10,
+    marginVertical: 6,
+    padding: 15,
     fontWeight: '300',
     fontSize: 16,
+    textAlign: 'left',
   },
-  formButton: {
+  formBtn: {
     marginVertical: 15,
-    width: 100,
+    width: '50%',
+    height: 60,
+    backgroundColor: 'rgb(96, 199, 49)',
     alignSelf: 'center',
+    justifyContent: 'center',
+    borderRadius: 4,
+  },
+  formBtnText: {
+    fontWeight: '700',
+    fontSize: 20,
+    letterSpacing: 2,
+    textAlign: 'center',
+  },
+  btnGuest: {
+    marginVertical: 15,
+    padding: 5,
+    width: '50%',
+    height: 30,
+    backgroundColor: 'rgb(127, 132, 204)',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    borderRadius: 4,
+  },
+  btnGuestText: {
+    fontWeight: '400',
+    fontSize: 16,
+    letterSpacing: 1,
+    textAlign: 'center',
   },
 });
 

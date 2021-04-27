@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import UserLogin from './src/components/UserLogin';
 import DeskList from './src/components/DeskList';
 
@@ -24,8 +24,10 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
+  container: {
     backgroundColor: '#ddd',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
