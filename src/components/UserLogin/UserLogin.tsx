@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {Form, Field} from 'react-final-form';
-import {TouchableOpacity, Button, StyleSheet, Text, View} from 'react-native';
+import {TouchableOpacity, StyleSheet, Text, View} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
+import styled from 'styled-components';
 
 export const UserLogin: React.FC<Props> = () => {
+  const myInput: any = useRef();
+
   const onSubmit = (values: ValuesType) => {
     console.log(values.Login);
     console.log(values.Password);
+    // console.log(myInput.text);
+    // myInput.value.current.clear();
   };
 
   return (
@@ -19,9 +24,11 @@ export const UserLogin: React.FC<Props> = () => {
             <Field name="Login">
               {prop => (
                 <TextInput
+                  ref={myInput}
                   style={styles.formInput}
                   placeholder="Введите имя пользователя"
                   {...prop.input}
+                  // передача данных через final-form работает только с input?
                 />
               )}
             </Field>
@@ -35,7 +42,11 @@ export const UserLogin: React.FC<Props> = () => {
               )}
             </Field>
             <View>
-              <TouchableOpacity style={styles.formBtn} onPress={handleSubmit}>
+              <TouchableOpacity
+                style={styles.formBtn}
+                onPress={() => {
+                  handleSubmit();
+                }}>
                 <Text style={styles.formBtnText}> SUBMIT </Text>
               </TouchableOpacity>
             </View>
@@ -53,10 +64,21 @@ export const UserLogin: React.FC<Props> = () => {
   );
 };
 
+// const Input = styled.TextInput`
+//   width: 100%;
+//   align-self: center;
+//   border: none;
+//   border-radius: 4px;
+//   &:focus {
+//     outline: none;
+//     box-shadow: 0 0 5px 1px #036788;
+//     background: white;
+//   }
+// `;
+// Может styled components??
 const styles = StyleSheet.create({
   сontainer: {
     flex: 1,
-    // flexDirection: 'column',
     marginTop: 0,
     padding: 5,
     justifyContent: 'center',
@@ -69,9 +91,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   formTitle: {
-    // top: 0,
     marginBottom: 60,
-    // paddingVertical: 10,
     fontWeight: '500',
     fontSize: 34,
     textAlign: 'center',
