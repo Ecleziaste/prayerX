@@ -57,7 +57,7 @@ export const UserLogin: React.FC<Props> = () => {
       </View>
       <View>
         <TouchableOpacity style={styles.btnGuest} onPress={() => {}}>
-          <Text style={styles.btnGuestText}> Enter like Guest </Text>
+          <Text style={styles.btnGuestText}> REGISTER</Text>
         </TouchableOpacity>
       </View>
     </View>

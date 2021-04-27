@@ -2,23 +2,18 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {StyleSheet} from 'react-native';
-import UserLogin from './src/components/UserLogin';
-import DeskList from './src/components/DeskList';
+import {StyleSheet, View} from 'react-native';
+import GuestNavigator from './src/navigation/GuestNavigator';
+import UserNavigator from './src/navigation/UserNavigator';
 
-const Stack = createStackNavigator();
+// const Stack = createStackNavigator();
+
+const user = true;
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen
-          name="Home"
-          component={UserLogin}
-          // options={{title: 'Please log in'}}
-        />
-        <Stack.Screen name="Profile" component={DeskList} />
-      </Stack.Navigator>
+      {user ? UserNavigator() : GuestNavigator()}
     </NavigationContainer>
   );
 };
