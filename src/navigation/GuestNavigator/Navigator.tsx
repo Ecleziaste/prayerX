@@ -1,19 +1,26 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, {VoidFunctionComponent} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {View} from 'react-native';
-import Guest from '../../components/Guest';
+import UserLogin from '../../components/UserLogin';
+import Register from '../../components/Register';
 
 const GuestNavigator = () => {
   const Stack = createStackNavigator();
 
   return (
-    // <NavigationContainer>
-    <Stack.Navigator initialRouteName="Guest">
-      <Stack.Screen name="Guest" component={Guest} />
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen
+        name="Home"
+        component={UserLogin}
+        // userHasLogged={userHasLogged}
+      />
+      <Stack.Screen name="Register" component={Register} />
     </Stack.Navigator>
-    // </NavigationContainer>
   );
 };
 
 export default GuestNavigator;
+
+type Props = {
+  userHasLogged: () => void;
+};

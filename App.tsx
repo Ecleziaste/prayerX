@@ -1,16 +1,17 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, {useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
 import {StyleSheet, View} from 'react-native';
+import UserLogin from './src/components/UserLogin';
 import GuestNavigator from './src/navigation/GuestNavigator';
 import UserNavigator from './src/navigation/UserNavigator';
 
-// const Stack = createStackNavigator();
-
-const user = true;
-
 const App = () => {
+  const [user, setUser] = useState(null);
+  // const userHasLogged = (value: any) => {
+  //   setUser(value);
+  // };
+
   return (
     <NavigationContainer>
       {user ? UserNavigator() : GuestNavigator()}

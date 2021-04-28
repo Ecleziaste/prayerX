@@ -4,15 +4,24 @@ import {TouchableOpacity, StyleSheet, Text, View} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
 import styled from 'styled-components';
 
-export const UserLogin: React.FC<Props> = () => {
+export const UserLogin: React.FC<Props> = ({navigation}) => {
   const myInput: any = useRef();
 
   const onSubmit = (values: ValuesType) => {
-    console.log(values.Login);
-    console.log(values.Password);
+    if (values.Login === '1' && values.Password === '1') {
+      console.log('user has logged in, user variable will set to TRUE');
+    } else {
+      console.log('no such user, click REGISTER to register :)');
+      navigation.navigate('Home');
+    }
+    // console.log(values.Login);
+    // console.log(values.Password);
+
     // console.log(myInput.text);
     // myInput.value.current.clear();
   };
+
+  // navigation.navigate('Home')
 
   return (
     <View style={styles.сontainer}>
@@ -56,7 +65,11 @@ export const UserLogin: React.FC<Props> = () => {
         <Text>or</Text>
       </View>
       <View>
-        <TouchableOpacity style={styles.btnGuest} onPress={() => {}}>
+        <TouchableOpacity
+          style={styles.btnGuest}
+          onPress={() => {
+            navigation.navigate('Register');
+          }}>
           <Text style={styles.btnGuestText}> REGISTER</Text>
         </TouchableOpacity>
       </View>
@@ -75,7 +88,7 @@ export const UserLogin: React.FC<Props> = () => {
 //     background: white;
 //   }
 // `;
-// Может styled components??
+
 const styles = StyleSheet.create({
   сontainer: {
     flex: 1,
@@ -142,7 +155,9 @@ const styles = StyleSheet.create({
 export default UserLogin;
 
 type Props = {
+  navigation: any;
   onSubmit: (values: ValuesType) => void;
+  userHasLogged: () => void;
 };
 
 type ValuesType = {
