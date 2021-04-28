@@ -1,27 +1,19 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import {Form, Field} from 'react-final-form';
 import {TouchableOpacity, StyleSheet, Text, View} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 
 export const UserLogin: React.FC<Props> = ({navigation}) => {
-  const myInput: any = useRef();
-
   const onSubmit = (values: ValuesType) => {
-    if (values.Login === '1' && values.Password === '1') {
-      console.log('user has logged in, user variable will set to TRUE');
-    } else {
-      console.log('no such user, click REGISTER to register :)');
-      navigation.navigate('Home');
-    }
-    // console.log(values.Login);
-    // console.log(values.Password);
-
-    // console.log(myInput.text);
-    // myInput.value.current.clear();
+    console.log('values', values);
+    // if (values.Login === '1' && values.Password === '1') {
+    //   console.log('user has logged in, user variable will set to TRUE');
+    // } else {
+    //   console.log('no such user, click REGISTER to register :)');
+    //   navigation.navigate('Home');
+    // }
   };
-
-  // navigation.navigate('Home')
 
   return (
     <View style={styles.сontainer}>
@@ -30,25 +22,19 @@ export const UserLogin: React.FC<Props> = ({navigation}) => {
         render={({handleSubmit}) => (
           <View style={styles.formWrapper}>
             <Text style={styles.formTitle}>Please log in</Text>
+            {/* <Field
+              name="Login"
+              component="input"
+              // component={Input}
+              placeholder="Введите имя пользователя"
+            /> */}
             <Field name="Login">
               {prop => (
-                <TextInput
-                  ref={myInput}
-                  style={styles.formInput}
-                  placeholder="Введите имя пользователя"
-                  {...prop.input}
-                  // передача данных через final-form работает только с input?
-                />
+                <Input placeholder="Введите имя пользователя" {...prop.input} />
               )}
             </Field>
             <Field name="Password">
-              {prop => (
-                <TextInput
-                  style={styles.formInput}
-                  placeholder="Введите пароль"
-                  {...prop.input}
-                />
-              )}
+              {prop => <Input placeholder="Введите пароль" {...prop.input} />}
             </Field>
             <View>
               <TouchableOpacity
@@ -77,17 +63,17 @@ export const UserLogin: React.FC<Props> = ({navigation}) => {
   );
 };
 
-// const Input = styled.TextInput`
-//   width: 100%;
-//   align-self: center;
-//   border: none;
-//   border-radius: 4px;
-//   &:focus {
-//     outline: none;
-//     box-shadow: 0 0 5px 1px #036788;
-//     background: white;
-//   }
-// `;
+const Input = styled.TextInput`
+  width: 100%;
+  align-self: center;
+  border: 1px black solid;
+  border-radius: 4px;
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 5px 1px #036788;
+    background: white;
+  }
+`;
 
 const styles = StyleSheet.create({
   сontainer: {
