@@ -1,23 +1,19 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {StyleSheet, View} from 'react-native';
 import Navigator from './src/navigation/Navigator';
+import './index.css';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+import {store, persistor} from './src/store';
 
 const App = () => {
-  // const userHasLogged = (value: any) => {
-  //   setUser(value);
-  // };
-
-  return <Navigator />;
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <Navigator />
+      </PersistGate>
+    </Provider>
+  );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#ddd',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default App;

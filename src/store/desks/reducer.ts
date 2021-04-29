@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {DeskType} from '../Types';
+import {DeskType} from '../types';
 import {changeTitle} from './actions';
 
 const initialState: Array<DeskType> = [

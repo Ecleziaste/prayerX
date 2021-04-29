@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import DeskList from '../../components/DeskList';
+import DeskList from './ScreenDesk';
 
 const UserNavigator = () => {
   const Stack = createStackNavigator();

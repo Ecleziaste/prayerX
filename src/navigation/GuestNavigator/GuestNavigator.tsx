@@ -1,8 +1,8 @@
 import 'react-native-gesture-handler';
-import React, {VoidFunctionComponent} from 'react';
+import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import UserLogin from '../../components/UserLogin';
-import Register from '../../components/Register';
+import UserLogin from './ScreenLogin';
+import Register from './ScreenRegister';
 
 const GuestNavigator = () => {
   const Stack = createStackNavigator();
