@@ -1,10 +1,10 @@
 import {createSelector} from 'reselect';
 import {RootState} from '../../store';
 
-export const selectColumns = (state: RootState) =>
-  state.desks.map(column => column.id);
+export const selectDesks = (state: RootState) =>
+  state.desks.map(desk => desk.id);
 
-export const selectColumnById = createSelector(
+export const selectDeskById = createSelector(
   (state: RootState) => state.desks,
   (_: RootState, id: string) => id,
   (desks, id) => desks.find(desk => desk.id === id),

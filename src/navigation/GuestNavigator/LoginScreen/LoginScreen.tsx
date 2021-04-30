@@ -1,10 +1,9 @@
 import React from 'react';
 import {Form, Field} from 'react-final-form';
 import {TouchableOpacity, StyleSheet, Text, View} from 'react-native';
-import {TextInput} from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 
-export const UserLogin: React.FC<Props> = ({navigation}) => {
+const LoginScreen: React.FC<Props> = ({navigation}) => {
   const onSubmit = (values: ValuesType) => {
     console.log('values', values);
     // if (values.Login === '1' && values.Password === '1') {
@@ -138,7 +137,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UserLogin;
+export default LoginScreen;
 
 type Props = {
   navigation: any;

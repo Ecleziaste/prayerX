@@ -1,9 +1,9 @@
 enum AppRoutes {
-  ScreenLogin = 'ScreenLogin',
-  ScreenRegister = 'ScreenRegister',
-  ScreenDesk = 'ScreenDesk',
-  ScreenTaskList = 'ScreenTaskList',
-  ScreenTask = 'ScreenTask',
+  LoginScreen = 'LoginScreen',
+  RegisterScreen = 'RegisterScreen',
+  DeskListScreen = 'DeskListScreen',
+  DeskScreen = 'DeskScreen',
+  TaskScreen = 'TaskScreen',
 }
 
 export default AppRoutes;

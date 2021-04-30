@@ -5,7 +5,7 @@ import UserNavigator from './UserNavigator';
 import React from 'react';
 
 const Navigator = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(true);
 
   return (
     <NavigationContainer>
@@ -13,4 +13,5 @@ const Navigator = () => {
     </NavigationContainer>
   );
 };
+
 export default Navigator;

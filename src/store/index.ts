@@ -1,13 +1,13 @@
 import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
 import {rootReducer} from './ducks';
 import {persistStore, persistReducer} from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export type RootState = ReturnType<typeof rootReducer>;
 
 const persistConfig = {
   key: 'root',
-  storage,
+  storage: AsyncStorage,
   whitelist: ['user'],
 };
 const pReducer = persistReducer(persistConfig, rootReducer);
