@@ -2,8 +2,11 @@ import React from 'react';
 import {Form, Field} from 'react-final-form';
 import {TouchableOpacity, StyleSheet, Text, View} from 'react-native';
 import styled from 'styled-components/native';
+import {useNavigation} from '@react-navigation/core';
 
-const LoginScreen: React.FC<Props> = ({navigation}) => {
+const LoginScreen: React.FC<Props> = () => {
+  const navigation = useNavigation();
+
   const onSubmit = (values: ValuesType) => {
     console.log('values', values);
     // if (values.Login === '1' && values.Password === '1') {
@@ -15,12 +18,12 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
   };
 
   return (
-    <View style={styles.сontainer}>
+    <Container>
+      <Title>Please log in</Title>
       <Form
         onSubmit={onSubmit}
         render={({handleSubmit}) => (
           <View style={styles.formWrapper}>
-            <Text style={styles.formTitle}>Please log in</Text>
             {/* <Field
               name="Login"
               component="input"
@@ -53,15 +56,34 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
         <TouchableOpacity
           style={styles.btnGuest}
           onPress={() => {
-            navigation.navigate('Register');
+            navigation.navigate('RegisterScreen');
           }}>
           <Text style={styles.btnGuestText}> REGISTER</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </Container>
   );
 };
 
+const Container = styled.View`
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  flex: 1;
+  align-self: stretch;
+  align-items: center;
+  justify-content: center;
+
+  border-width: 1px;
+  border-color: red;
+`;
+const Title = styled.Text`
+  margin-bottom: 60px;
+  padding: 0;
+  font-size: 30px;
+  font-weight: 500;
+  text-align: center;
+`;
 const Input = styled.TextInput`
   width: 100%;
   align-self: center;
@@ -88,12 +110,7 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
   },
-  formTitle: {
-    marginBottom: 60,
-    fontWeight: '500',
-    fontSize: 34,
-    textAlign: 'center',
-  },
+
   formInput: {
     borderWidth: 2,
     borderColor: '#20232a',
@@ -140,7 +157,6 @@ const styles = StyleSheet.create({
 export default LoginScreen;
 
 type Props = {
-  navigation: any;
   onSubmit: (values: ValuesType) => void;
   userHasLogged: () => void;
 };

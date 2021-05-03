@@ -5,7 +5,7 @@ import GuestNavigator from './GuestNavigator';
 import UserNavigator from './UserNavigator';
 
 const Navigator = () => {
-  const [user, setUser] = useState(true);
+  const [user, setUser] = useState(false);
 
   return (
     <NavigationContainer>

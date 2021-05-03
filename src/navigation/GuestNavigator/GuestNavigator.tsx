@@ -13,6 +13,7 @@ const GuestNavigator = () => {
       <Stack.Screen
         name={AppRoutes.LoginScreen}
         component={LoginScreen}
+        options={{headerShown: false}}
         // userHasLogged={userHasLogged}
       />
       <Stack.Screen
