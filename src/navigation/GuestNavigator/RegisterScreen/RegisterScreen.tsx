@@ -1,7 +1,6 @@
 import React from 'react';
 import {Form, Field} from 'react-final-form';
-import {TouchableOpacity, StyleSheet, Text, View} from 'react-native';
-import {TextInput} from 'react-native-gesture-handler';
+import {TouchableOpacity, Text, View} from 'react-native';
 
 export const RegisterScreen: React.FC<Props> = () => {
   return (

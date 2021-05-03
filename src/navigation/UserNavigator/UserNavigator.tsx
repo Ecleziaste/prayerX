@@ -3,6 +3,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import DeskListScreen from './DeskListScreen';
 import DeskScreen from './DeskScreen';
+import TaskScreen from './TaskScreen';
 import AppRoutes from '../route';
 
 const UserNavigator = () => {
@@ -14,14 +15,17 @@ const UserNavigator = () => {
         name={AppRoutes.DeskListScreen}
         component={DeskListScreen}
         options={{headerShown: false}}
-        // options={{title: AppRoutes.ScreenDeskList}}
       />
       <Stack.Screen
         name={AppRoutes.DeskScreen}
         component={DeskScreen}
         options={{title: AppRoutes.DeskScreen}}
       />
-      {/* далее 2 скрина: доска и таска */}
+      <Stack.Screen
+        name={AppRoutes.TaskScreen}
+        component={TaskScreen}
+        options={{title: AppRoutes.TaskScreen}}
+      />
     </Stack.Navigator>
   );
 };
