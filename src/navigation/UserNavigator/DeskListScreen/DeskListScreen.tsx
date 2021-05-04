@@ -2,19 +2,21 @@ import React from 'react';
 import {Text, View} from 'react-native';
 import styled from 'styled-components/native';
 import Desk from './Desk';
-import {useSelector, shallowEqual} from 'react-redux';
+import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {selectDesks} from '../../../store/desks/selectors';
 import {useNavigation} from '@react-navigation/core';
+import {setUser} from '../../../store/user/actions';
 
 const DeskListScreen: React.FC<Props> = () => {
   const desksIds = useSelector(selectDesks, shallowEqual);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   console.log(desksIds);
 
   return (
     <Container>
       <DesklistHeader>
-        <CloseDeskListBtn>
+        <CloseDeskListBtn onPress={() => dispatch(setUser(null))}>
           <Text>x</Text>
         </CloseDeskListBtn>
         <NewDeskTitle defaultValue="My Desk"></NewDeskTitle>
@@ -56,7 +58,7 @@ const DesklistHeader = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: #e5e5e5;
 `;
-const CloseDeskListBtn = styled.View`
+const CloseDeskListBtn = styled.TouchableOpacity`
   flex-flow: row nowrap;
   justify-content: center;
   align-items: center;

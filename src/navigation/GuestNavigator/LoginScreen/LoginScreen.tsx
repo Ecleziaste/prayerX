@@ -3,18 +3,22 @@ import {Form, Field} from 'react-final-form';
 import {TouchableOpacity, StyleSheet, Text, View} from 'react-native';
 import styled from 'styled-components/native';
 import {useNavigation} from '@react-navigation/core';
+import {useDispatch, useSelector} from 'react-redux';
+import AppRoutes from '../../route';
+import {setUser} from '../../../store/user/actions';
 
 const LoginScreen: React.FC<Props> = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const onSubmit = (values: ValuesType) => {
     console.log('values', values);
-    // if (values.Login === '1' && values.Password === '1') {
-    //   console.log('user has logged in, user variable will set to TRUE');
-    // } else {
-    //   console.log('no such user, click REGISTER to register :)');
-    //   navigation.navigate('Home');
-    // }
+    if (values.Login === '1' && values.Password === '1') {
+      dispatch(setUser(true));
+      console.log('~~ user has logged in');
+    } else {
+      navigation.navigate(AppRoutes.RegisterScreen);
+    }
   };
 
   return (
