@@ -31,15 +31,15 @@ const LoginScreen: React.FC<Props> = () => {
           <FormWrapper>
             {/* <Field
               name="Login"
-              // component="input"
-              // value={Input => ({...Input.input})}
-              // input={TextInput}
+              // {...component.input.onChange}
+              // {...input}
               component={Input}
+              validate={value => (value ? undefined : 'Required')}
               placeholder="Введите имя пользователя"
             /> */}
             <Field name="Login">
-              {prop => (
-                <Input placeholder="Введите имя пользователя" {...prop.input} />
+              {p => (
+                <Input placeholder="Введите имя пользователя" {...p.input} />
               )}
             </Field>
             <Field name="Password">

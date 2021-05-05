@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, Image} from 'react-native';
 import styled from 'styled-components/native';
 import Desk from './Desk';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
@@ -17,12 +17,12 @@ const DeskListScreen: React.FC<Props> = () => {
     <Container>
       <DesklistHeader>
         <CloseDeskListBtn onPress={() => dispatch(setUser(null))}>
-          <Text>x</Text>
+          <Image source={require('../../../icons/Plus.png')} />
         </CloseDeskListBtn>
         <NewDeskTitle defaultValue="My Desk"></NewDeskTitle>
         <AddNewDeskBtn>
           <View>
-            <Text>+</Text>
+            <Image source={require('../../../icons/Plus.png')} />
           </View>
         </AddNewDeskBtn>
       </DesklistHeader>
@@ -50,10 +50,6 @@ const DesklistHeader = styled.View`
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-
-  border-top-width: 1px;
-  border-top-color: #e5e5e5;
-
   margin-bottom: 15px;
   border-bottom-width: 1px;
   border-bottom-color: #e5e5e5;
@@ -65,8 +61,6 @@ const CloseDeskListBtn = styled.TouchableOpacity`
   margin: 24px 15px 24px 15px;
   width: 16px;
   height: 16px;
-  border-color: red;
-  border-width: 1px;
 `;
 const AddNewDeskBtn = CloseDeskListBtn;
 const NewDeskTitle = styled.TextInput`
