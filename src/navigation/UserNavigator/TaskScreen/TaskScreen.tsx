@@ -1,14 +1,18 @@
 import React from 'react';
+import {RootState} from '../../../store';
 import {Text} from 'react-native';
-import {useNavigation} from '@react-navigation/core';
+import {useRoute} from '@react-navigation/core';
+import {useSelector, useDispatch, shallowEqual} from 'react-redux';
+import {selectTaskById} from '../../../store/tasks/selectors';
 import styled from 'styled-components/native';
 
 const TaskScreen: React.FC<Props> = () => {
-  const navigation = useNavigation();
+  const route = useRoute();
+  const {title} = route.params;
 
   return (
     <Container>
-      <Text>TASK SCREEN</Text>
+      <Text>{title}</Text>
     </Container>
   );
 };

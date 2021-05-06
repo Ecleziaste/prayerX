@@ -1,37 +1,45 @@
 import React, {useState} from 'react';
+import {RootState} from '../../../../store';
+import {selectTaskById} from '../../../../store/tasks/selectors';
 import {Text, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import AppRoutes from '../../../route';
 import styled from 'styled-components/native';
+import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import CheckBox from '@react-native-community/checkbox';
 
-const Task: React.FC<Props> = () => {
+const Task: React.FC<Props> = ({id}) => {
   const navigation = useNavigation();
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  const {title} = useSelector((state: RootState) => selectTaskById(state, id))!;
+  const {users} = useSelector((state: RootState) => selectTaskById(state, id))!;
+  const {prayers} = useSelector((state: RootState) =>
+    selectTaskById(state, id),
+  )!;
 
   return (
     <TaskContainer>
       <StateBox>
         <StateIcon source={require('../../../../icons/State/Red.png')} />
       </StateBox>
-
       <CheckBox
         disabled={false}
         value={toggleCheckBox}
         onValueChange={newValue => setToggleCheckBox(newValue)}></CheckBox>
-      <TouchableText onPress={() => navigation.navigate(AppRoutes.TaskScreen)}>
+      <TouchableText
+        onPress={() => navigation.navigate(AppRoutes.TaskScreen, {title})}>
         <TaskText numberOfLines={1} ellipsizeMode="tail">
-          TASK sssssssssssssssssssssssss
+          {title}
         </TaskText>
       </TouchableText>
       <UserIcon source={require('../../../../icons/User/user.png')}></UserIcon>
       <UserCount>
-        <Text>4</Text>
+        <Text>{users}</Text>
       </UserCount>
       <PrayerIcon
         source={require('../../../../icons/HandsBlue/prayer_line.png')}></PrayerIcon>
       <PrayerCount>
-        <Text>29</Text>
+        <Text>{prayers}</Text>
       </PrayerCount>
     </TaskContainer>
   );
@@ -39,7 +47,9 @@ const Task: React.FC<Props> = () => {
 
 export default Task;
 
-type Props = {};
+type Props = {
+  id: string;
+};
 
 const TaskContainer = styled.View`
   width: 345px;

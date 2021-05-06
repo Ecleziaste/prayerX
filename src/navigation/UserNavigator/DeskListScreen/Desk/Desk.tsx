@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import {v4 as uuidv4} from 'uuid';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../../store';
 import {selectDeskById} from '../../../../store/desks/selectors';
@@ -12,7 +11,7 @@ const Desk: React.FC<Props> = ({id}) => {
   const {title} = useSelector((state: RootState) => selectDeskById(state, id))!;
 
   return (
-    <Container onPress={() => navigation.navigate(AppRoutes.DeskScreen)}>
+    <Container onPress={() => navigation.navigate(AppRoutes.DeskScreen, {id})}>
       <DeskTitle>{title}</DeskTitle>
     </Container>
   );

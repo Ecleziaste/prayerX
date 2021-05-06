@@ -1,27 +1,67 @@
-import React from 'react';
-import {Text, View, TouchableOpacity} from 'react-native';
-import {useNavigation} from '@react-navigation/core';
+import React, {useState} from 'react';
+import {RootState} from '../../../store';
+import {useSelector, useDispatch, shallowEqual} from 'react-redux';
+import {
+  selectTasksIds,
+  selectTaskById,
+  selectSubscribedTasksIds,
+  selectAnsweredTasksIds,
+  selectUnansweredTasksIds,
+} from '../../../store/tasks/selectors';
+import {selectDeskById} from '../../../store/desks/selectors';
+import {selectTasksIdsByDeskId} from '../../../store/tasks/selectors';
+import {Image} from 'react-native';
+import {useRoute, useNavigation} from '@react-navigation/core';
 import styled from 'styled-components/native';
 import Task from './Task';
 import ButtonLong from '../../../components/ButtonLong';
 
 const DeskScreen: React.FC<Props> = () => {
-  const navigation = useNavigation();
+  const route = useRoute();
+  const {id} = route.params;
+  const {title} = useSelector((state: RootState) => selectDeskById(state, id))!;
+  const tasksIds = useSelector((state: RootState) =>
+    selectTasksIdsByDeskId(state, id),
+  )!;
+
+  // const tasks = useSelector(selectTasksIds);
+  const tasksSubscribed = useSelector(selectSubscribedTasksIds);
+  const tasksAnswered = useSelector(selectAnsweredTasksIds);
+  const tasksUnanswered = useSelector(selectUnansweredTasksIds);
+  console.log(tasksIds);
+  console.log(tasksSubscribed);
+
+  const [tab, setTab] = useState(true);
+  const [btnPushed, setBtnPushed] = useState(false);
+  const [btnText, setBtnText] = useState('show answered prayers');
+  const handleBtnPush = () => {
+    switch (btnPushed) {
+      case false:
+        setBtnPushed(true);
+        setBtnText('hide answered prayers');
+        break;
+      case true:
+        setBtnPushed(false);
+        setBtnText('show answered prayers');
+    }
+  };
 
   return (
-    // FlatList?
     <Container>
       <DeskScreenHeader>
+        <SettingsIcon>
+          <Image source={require('../../../icons/Settings.png')}></Image>
+        </SettingsIcon>
         <TitleWrapper>
-          <Title>Title</Title>
+          <Title>{title}</Title>
         </TitleWrapper>
         <TabsContainer>
-          <MyPrayers>
-            <TabText>my prayers</TabText>
+          <MyPrayers onPress={() => setTab(true)}>
+            <MyPrayersText>my prayers</MyPrayersText>
           </MyPrayers>
-          <Subscribed>
+          <Subscribed onPress={() => setTab(false)}>
             <SubscribedInnerContent>
-              <TabText>subscribed</TabText>
+              <SubscribedText>subscribed</SubscribedText>
               <SubscribedIcon>
                 <SubscribedIconText>3</SubscribedIconText>
               </SubscribedIcon>
@@ -29,23 +69,40 @@ const DeskScreen: React.FC<Props> = () => {
           </Subscribed>
         </TabsContainer>
       </DeskScreenHeader>
-      <Task />
-      <Task />
-      <Task />
+      {/* {desksIds.map(id => {
+        return <Desk id={id} key={id} />;
+      })} */}
+      {tab ? (
+        <DeskScreenBody
+          keyExtractor={item => item + '1'}
+          data={tasksIds}
+          renderItem={({item}: any) => <Task id={item} />}></DeskScreenBody>
+      ) : (
+        <DeskScreenBody
+          keyExtractor={item => item + '2'}
+          data={tasksSubscribed}
+          renderItem={({item}: any) => <Task id={item} />}></DeskScreenBody>
+      )}
       <ButtonLong
-        text="show answered prayers"
-        handlerFunc={() => {}}></ButtonLong>
+        text={btnText}
+        handlerFunc={() => handleBtnPush()}></ButtonLong>
+      {btnPushed && (
+        <AnsweredPrayers>
+          <Task />
+          <Task />
+          <Task />
+          <Task />
+        </AnsweredPrayers>
+      )}
     </Container>
   );
 };
 
 export default DeskScreen;
 
-type Props = {};
+type Props = {id: string};
 
-const Container = styled.View`
-  margin: 0;
-  padding: 0;
+const Container = styled.SafeAreaView`
   background: #ffffff;
   flex: 1;
   align-self: stretch;
@@ -57,42 +114,62 @@ const DeskScreenHeader = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: #e5e5e5;
 `;
+const DeskScreenBody = styled.FlatList``;
+const AnsweredPrayers = styled.View`
+  /* align-self: stretch; */
+  align-items: center;
+`;
 const TitleWrapper = styled.View`
-  width: 100%;
-  height: 50%;
+  flex: 1;
   justify-content: center;
   align-items: center;
-  font-size: 17px;
-  line-height: 20px;
 `;
 const Title = styled.Text`
+  font-family: SF UI Text;
   text-align: center;
   font-size: 17px;
   line-height: 20px;
+  font-weight: 600;
+  color: #514d47;
 `;
 const TabsContainer = styled.View`
-  width: 100%;
-  height: 50%;
+  flex: 1;
   flex-flow: row nowrap;
   justify-content: space-evenly;
-  padding-bottom: 17px;
+  /* padding-bottom: 17px; */
 `;
 const MyPrayers = styled.TouchableOpacity`
-  justify-content: flex-end;
-  align-self: stretch;
-`;
-const Subscribed = styled.TouchableOpacity`
-  /* flex-flow: row nowrap; */
-  margin: 0;
-  padding: 0;
+  width: 50%;
   justify-content: center;
   align-items: center;
-  align-self: stretch;
+  /* color: rgba(114, 168, 188, 1); */
+  border-bottom-width: 1px;
+  border-bottom-color: rgba(114, 168, 188, 1);
+`;
+const MyPrayersText = styled.Text`
+  text-transform: uppercase;
+  color: rgba(114, 168, 188, 1);
+  /* color: rgba(200, 200, 200, 1); */
+`;
+const Subscribed = styled.TouchableOpacity`
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+
+  border-bottom-width: 1px;
+  border-bottom-color: rgba(200, 200, 200, 1);
+  /* border-bottom-color: rgba(114, 168, 188, 1); */
 `;
 const SubscribedInnerContent = styled.View`
-  margin: 0;
-  padding: 0;
+  flex: 1;
   flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+`;
+const SubscribedText = styled.Text`
+  text-transform: uppercase;
+  /* color: rgba(114, 168, 188, 1); */
+  color: rgba(200, 200, 200, 1);
 `;
 const SubscribedIcon = styled.View`
   width: 15px;
@@ -107,8 +184,11 @@ const SubscribedIconText = styled.Text`
   font-size: 9px;
   color: white;
 `;
-const TabText = styled.Text`
-  /* text-align: left; */
-  text-transform: uppercase;
+
+const SettingsIcon = styled.TouchableOpacity`
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  right: 20px;
+  top: 20px;
 `;
-const SettingsIcon = styled.View``;

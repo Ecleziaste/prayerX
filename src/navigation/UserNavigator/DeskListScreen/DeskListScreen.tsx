@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, Image} from 'react-native';
+import {View, Image} from 'react-native';
 import styled from 'styled-components/native';
 import Desk from './Desk';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
@@ -11,13 +11,12 @@ const DeskListScreen: React.FC<Props> = () => {
   const desksIds = useSelector(selectDesks, shallowEqual);
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  console.log(desksIds);
 
   return (
     <Container>
       <DesklistHeader>
         <CloseDeskListBtn onPress={() => dispatch(setUser(null))}>
-          <Image source={require('../../../icons/Plus.png')} />
+          <Image source={require('../../../icons/Cross.png')} />
         </CloseDeskListBtn>
         <NewDeskTitle defaultValue="My Desk"></NewDeskTitle>
         <AddNewDeskBtn>
