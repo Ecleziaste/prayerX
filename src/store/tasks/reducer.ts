@@ -6,7 +6,8 @@ const initialState: Array<TaskType> = [
   {
     id: '1',
     deskId: '1',
-    title: 'Task title',
+    title:
+      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
     users: 2,
     prayers: 47,
     answered: false,
