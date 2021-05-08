@@ -1,19 +1,20 @@
 import React from 'react';
 import {RootState} from '../../../store';
 import {Image} from 'react-native';
-import {useRoute} from '@react-navigation/core';
+import {useRoute, useNavigation} from '@react-navigation/core';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {selectTaskById} from '../../../store/tasks/selectors';
 import styled from 'styled-components/native';
 
 const TaskScreen: React.FC<Props> = () => {
+  const navigation = useNavigation();
   const route = useRoute();
   const {title} = route.params;
 
   return (
     <Container>
       <Header>
-        <BackBtn>
+        <BackBtn onPress={() => navigation.goBack()}>
           <Image source={require('../../../icons/Back/back.png')}></Image>
         </BackBtn>
         <PrayBtn>
@@ -32,12 +33,58 @@ const TaskScreen: React.FC<Props> = () => {
           <StatHeaderText>Last prayed ...</StatHeaderText>
         </StatHeader>
         <StatBody>
-          <FirstStatContainer></FirstStatContainer>
-          <StatContainer></StatContainer>
-          <StatContainer></StatContainer>
-          <StatContainer></StatContainer>
+          <FirstStatContainer>
+            <Count>
+              <DateText>July 25 2017</DateText>
+            </Count>
+            <Info>
+              <InfoText>Times Prayed By Others</InfoText>
+            </Info>
+            <Opened>Opened for 4 days</Opened>
+          </FirstStatContainer>
+          <StatContainer>
+            <Count>
+              <CountText>123</CountText>
+            </Count>
+            <Info>
+              <InfoText>Times Prayed Total</InfoText>
+            </Info>
+          </StatContainer>
+          <StatContainer>
+            <Count>
+              <CountText>63</CountText>
+            </Count>
+            <Info>
+              <InfoText>Times Prayed By Me</InfoText>
+            </Info>
+          </StatContainer>
+          <StatContainer>
+            <Count>
+              <CountText>60</CountText>
+            </Count>
+            <Info>
+              <InfoText>Times Prayed By Others</InfoText>
+            </Info>
+          </StatContainer>
         </StatBody>
       </Statistics>
+      <Members>
+        <MembersTitle>members</MembersTitle>
+        <MembersContent>
+          {/* {MemberComponent} */}
+          <Addmember
+            source={require('../../../icons/AddWhite.png')}></Addmember>
+        </MembersContent>
+      </Members>
+      <Comments>
+        <CommentsTitle>comments</CommentsTitle>
+        <CommentsContent>{/* {CommentComponent} */}</CommentsContent>
+        <AddComment>
+          <AddCommentImage
+            source={require('../../../icons/CommentAdd.png')}></AddCommentImage>
+          <CommentInput placeholder="Add a comment..."></CommentInput>
+        </AddComment>
+      </Comments>
     </Container>
   );
 };
@@ -115,6 +162,8 @@ const StatBody = styled.View`
 const FirstStatContainer = styled.View`
   width: 50%;
   height: 108px;
+  padding-left: 15px;
+  justify-content: center;
   border-top-width: 1px;
   border-left-width: 1px;
   border-color: #e5e5e5;
@@ -122,10 +171,78 @@ const FirstStatContainer = styled.View`
 const StatContainer = styled.View`
   width: 50%;
   height: 108px;
+  padding-left: 15px;
+  justify-content: center;
   border-top-width: 1px;
   border-left-width: 1px;
   border-color: #e5e5e5;
 `;
-const Counter = styled.View``;
+const Count = styled.View``;
+const CountText = styled.Text`
+  font-family: SF UI Text;
+  font-size: 32px;
+  line-height: 37px;
+  color: #bfb393;
+`;
 const Info = styled.View``;
-const InfoText = styled.Text``;
+const InfoText = styled.Text`
+  font-family: SF UI Text;
+  font-size: 13px;
+  line-height: 15px;
+  color: #514d47;
+`;
+const DateText = styled.Text`
+  font-family: SF UI Text;
+  font-size: 22px;
+  line-height: 26px;
+  color: #bfb393;
+`;
+const Opened = styled.Text`
+  position: absolute;
+  left: 15px;
+  bottom: 11px;
+  font-family: SF UI Text;
+  font-size: 13px;
+  line-height: 15px;
+  color: #72a8bc;
+`;
+const Members = styled.View`
+  width: 100%;
+  align-self: stretch;
+  padding: 20px 15px 20px 15px;
+  justify-content: flex-start;
+`;
+const MembersTitle = styled.Text`
+  font-family: SF UI Text;
+  font-size: 13px;
+  line-height: 15px;
+  color: rgba(114, 168, 188, 1);
+  text-transform: uppercase;
+`;
+const MembersContent = styled.View`
+  justify-content: flex-start;
+  flex-flow: row wrap;
+  margin-top: 15px;
+`;
+const Addmember = styled.Image``;
+const Comments = Members;
+const CommentsTitle = MembersTitle;
+const CommentsContent = styled.View`
+  margin-top: 15px;
+`;
+const AddComment = styled.View`
+  justify-content: flex-start;
+  align-items: center;
+  flex-flow: row nowrap;
+`;
+const AddCommentImage = styled.Image`
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+`;
+const CommentInput = styled.TextInput`
+  font-family: SF UI Text;
+  font-size: 17px;
+  line-height: 20px;
+  color: #9c9c9c;
+`;

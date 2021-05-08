@@ -19,12 +19,12 @@ const UserNavigator = () => {
       <Stack.Screen
         name={AppRoutes.DeskScreen}
         component={DeskScreen}
-        options={{title: AppRoutes.DeskScreen}}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name={AppRoutes.TaskScreen}
         component={TaskScreen}
-        options={{title: AppRoutes.TaskScreen}}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );

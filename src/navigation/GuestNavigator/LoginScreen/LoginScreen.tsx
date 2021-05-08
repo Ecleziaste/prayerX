@@ -5,6 +5,7 @@ import styled from 'styled-components/native';
 import {useNavigation} from '@react-navigation/core';
 import {useDispatch} from 'react-redux';
 import AppRoutes from '../../route';
+import SafeAreaView from 'react-native-safe-area-context';
 import {setUser} from '../../../store/user/actions';
 import ButtonLong from '../../../components/ButtonLong';
 
@@ -63,7 +64,7 @@ const LoginScreen: React.FC<Props> = () => {
   );
 };
 
-const Container = styled.View`
+const Container = styled.SafeAreaView`
   margin: 0;
   padding: 0;
   background: #ffffff;

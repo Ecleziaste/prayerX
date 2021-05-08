@@ -17,6 +17,7 @@ import Task from './Task';
 import ButtonLong from '../../../components/ButtonLong';
 
 const DeskScreen: React.FC<Props> = () => {
+  const navigation = useNavigation();
   const route = useRoute();
   const {id} = route.params;
   const {title} = useSelector((state: RootState) => selectDeskById(state, id))!;
@@ -28,8 +29,11 @@ const DeskScreen: React.FC<Props> = () => {
   const tasksSubscribed = useSelector(selectSubscribedTasksIds);
   const tasksAnswered = useSelector(selectAnsweredTasksIds);
   const tasksUnanswered = useSelector(selectUnansweredTasksIds);
-  console.log(tasksIds);
-  console.log(tasksSubscribed);
+  //   export const selectAnsweredTasksIds = (state: RootState) =>
+  //   state.tasks.filter(task => task.answered === true).map(task => task.id);
+
+  // export const selectUnansweredTasksIds = (state: RootState) =>
+  //   state.tasks.filter(task => task.answered === false).map(task => task.id);
 
   const [tab, setTab] = useState(true);
   const [btnPushed, setBtnPushed] = useState(false);
@@ -49,6 +53,10 @@ const DeskScreen: React.FC<Props> = () => {
   return (
     <Container>
       <DeskScreenHeader>
+        <BackBtn onPress={() => navigation.goBack()}>
+          <Image
+            source={require('../../../icons/CircledArrowLeft.png')}></Image>
+        </BackBtn>
         <SettingsIcon>
           <Image source={require('../../../icons/Settings.png')}></Image>
         </SettingsIcon>
@@ -184,11 +192,19 @@ const SubscribedIconText = styled.Text`
   font-size: 9px;
   color: white;
 `;
-
 const SettingsIcon = styled.TouchableOpacity`
   position: absolute;
   width: 24px;
   height: 24px;
   right: 20px;
   top: 20px;
+`;
+
+const BackBtn = styled.TouchableOpacity`
+  position: absolute;
+  margin: 0 auto;
+  top: 20px;
+  left: 12px;
+  width: 24px;
+  height: 24px;
 `;
