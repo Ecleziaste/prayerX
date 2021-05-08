@@ -95,11 +95,11 @@ const DeskScreen: React.FC<Props> = () => {
         text={btnText}
         handlerFunc={() => handleBtnPush()}></ButtonLong>
       {btnPushed && (
-        <AnsweredPrayers>
-          <Task />
-          <Task />
-          <Task />
-          <Task />
+        <AnsweredPrayers
+          keyExtractor={item => item + '3'}
+          data={tasksAnswered}
+          renderItem={({item}: any) => <Task id={item} />}>
+          {/* <Task id={'1'} /> */}
         </AnsweredPrayers>
       )}
     </Container>
@@ -123,9 +123,9 @@ const DeskScreenHeader = styled.View`
   border-bottom-color: #e5e5e5;
 `;
 const DeskScreenBody = styled.FlatList``;
-const AnsweredPrayers = styled.View`
+const AnsweredPrayers = styled.FlatList`
   /* align-self: stretch; */
-  align-items: center;
+  /* align-items: center; */
 `;
 const TitleWrapper = styled.View`
   flex: 1;
