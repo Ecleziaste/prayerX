@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import {RootState} from '../../../store';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {
-  selectTasksIds,
-  selectTaskById,
   selectSubscribedTasksIds,
   selectAnsweredTasksIds,
   selectUnansweredTasksIds,
@@ -13,6 +11,7 @@ import {selectTasksIdsByDeskId} from '../../../store/tasks/selectors';
 import {Image} from 'react-native';
 import {useRoute, useNavigation} from '@react-navigation/core';
 import styled from 'styled-components/native';
+import InputAdd from './InputAdd';
 import Task from './Task';
 import ButtonLong from '../../../components/ButtonLong';
 
@@ -29,11 +28,6 @@ const DeskScreen: React.FC<Props> = () => {
   const tasksSubscribed = useSelector(selectSubscribedTasksIds);
   const tasksAnswered = useSelector(selectAnsweredTasksIds);
   const tasksUnanswered = useSelector(selectUnansweredTasksIds);
-  //   export const selectAnsweredTasksIds = (state: RootState) =>
-  //   state.tasks.filter(task => task.answered === true).map(task => task.id);
-
-  // export const selectUnansweredTasksIds = (state: RootState) =>
-  //   state.tasks.filter(task => task.answered === false).map(task => task.id);
 
   const [tab, setTab] = useState(true);
   const [btnPushed, setBtnPushed] = useState(false);
@@ -77,6 +71,7 @@ const DeskScreen: React.FC<Props> = () => {
           </Subscribed>
         </TabsContainer>
       </DeskScreenHeader>
+      <InputAdd></InputAdd>
       {/* {desksIds.map(id => {
         return <Desk id={id} key={id} />;
       })} */}

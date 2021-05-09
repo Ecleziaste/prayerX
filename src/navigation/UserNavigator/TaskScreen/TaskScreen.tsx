@@ -72,8 +72,9 @@ const TaskScreen: React.FC<Props> = () => {
         <MembersTitle>members</MembersTitle>
         <MembersContent>
           {/* {MemberComponent} */}
-          <Addmember
-            source={require('../../../icons/AddWhite.png')}></Addmember>
+          <Addmember>
+            <Image source={require('../../../icons/AddWhite.png')}></Image>
+          </Addmember>
         </MembersContent>
       </Members>
       <Comments>
@@ -208,7 +209,7 @@ const Opened = styled.Text`
 `;
 const Members = styled.View`
   width: 100%;
-  align-self: stretch;
+  /* align-self: stretch; */
   padding: 20px 15px 20px 15px;
   justify-content: flex-start;
 `;
@@ -224,7 +225,7 @@ const MembersContent = styled.View`
   flex-flow: row wrap;
   margin-top: 15px;
 `;
-const Addmember = styled.Image``;
+const Addmember = styled.TouchableOpacity``;
 const Comments = Members;
 const CommentsTitle = MembersTitle;
 const CommentsContent = styled.View`
