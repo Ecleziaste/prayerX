@@ -245,5 +245,5 @@ const CommentInput = styled.TextInput`
   font-family: SF UI Text;
   font-size: 17px;
   line-height: 20px;
-  color: #9c9c9c;
+  color: rgba(81, 77, 71, 1);
 `;

@@ -1,13 +1,14 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Form, Field} from 'react-final-form';
 import {Text, View, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
-import {useNavigation} from '@react-navigation/core';
+import {PrivateValueStore, useNavigation} from '@react-navigation/core';
 import {useDispatch} from 'react-redux';
 import AppRoutes from '../../route';
-import SafeAreaView from 'react-native-safe-area-context';
 import {setUser} from '../../../store/user/actions';
 import ButtonLong from '../../../components/ButtonLong';
+import InputField from '../../../components/InputField';
+import InputContainer from '../../../components/InputContainer';
 
 const LoginScreen: React.FC<Props> = () => {
   const navigation = useNavigation();
@@ -17,7 +18,6 @@ const LoginScreen: React.FC<Props> = () => {
     console.log('values', values);
     if (values.Login === '1' && values.Password === '1') {
       dispatch(setUser(true));
-      console.log('~~ user has logged in');
     } else {
       // navigation.navigate(AppRoutes.RegisterScreen);
     }
@@ -30,22 +30,22 @@ const LoginScreen: React.FC<Props> = () => {
         onSubmit={onSubmit}
         render={({handleSubmit}) => (
           <FormWrapper>
-            {/* <Field
-              name="Login"
-              // {...component.input.onChange}
-              // {...input}
-              component={Input}
-              validate={value => (value ? undefined : 'Required')}
-              placeholder="Введите имя пользователя"
-            /> */}
-            <Field name="Login">
-              {p => (
-                <Input placeholder="Введите имя пользователя" {...p.input} />
-              )}
-            </Field>
-            <Field name="Password">
-              {prop => <Input placeholder="Введите пароль" {...prop.input} />}
-            </Field>
+            <InputContainer>
+              <Field
+                name="Login"
+                component={InputField}
+                validate={value => (value ? undefined : 'Required')}
+                placeholder="Введите имя пользователя"
+              />
+            </InputContainer>
+            <InputContainer>
+              <Field
+                name="Password"
+                component={InputField}
+                validate={value => (value ? undefined : 'Required')}
+                placeholder="Введите пароль"
+              />
+            </InputContainer>
 
             <ButtonLong text="submit" handlerFunc={handleSubmit}></ButtonLong>
           </FormWrapper>
@@ -57,7 +57,7 @@ const LoginScreen: React.FC<Props> = () => {
         <ButtonLong
           text="register"
           handlerFunc={() => {
-            navigation.navigate('RegisterScreen');
+            navigation.navigate(AppRoutes.RegisterScreen);
           }}></ButtonLong>
       </View>
     </Container>
@@ -73,8 +73,8 @@ const Container = styled.SafeAreaView`
   align-items: center;
   justify-content: center;
 
-  border-width: 1px;
-  border-color: red;
+  /* border-width: 1px;
+  border-color: red; */
 `;
 const Title = styled.Text`
   margin-bottom: 60px;
@@ -87,21 +87,6 @@ const FormWrapper = styled.View`
   width: 100%;
   padding: 0 20px 0 20px;
   justify-content: center;
-`;
-
-const Input = styled.TextInput`
-  width: 100%;
-  margin: 16px 15px 0 15px;
-  padding: 14px;
-  align-self: center;
-  background: #ffffff;
-  border: 1px solid #e5e5e5;
-  border-radius: 10px;
-  /* &:focus {
-    outline: none;
-    box-shadow: 0 0 5px 1px #036788;
-    background: white;
-  } */
 `;
 
 export default LoginScreen;
