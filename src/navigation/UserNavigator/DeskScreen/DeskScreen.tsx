@@ -191,7 +191,7 @@ const SubscribedText = styled.Text`
 const SubscribedIcon = styled.View`
   width: 15px;
   height: 15px;
-  border-radius: 50;
+  border-radius: 50px;
   justify-content: center;
   align-items: center;
   margin-left: 9px;

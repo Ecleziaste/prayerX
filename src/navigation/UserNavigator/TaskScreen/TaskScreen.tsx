@@ -1,11 +1,13 @@
 import React from 'react';
-import {RootState} from '../../../store';
 import {Image} from 'react-native';
 import {useRoute, useNavigation} from '@react-navigation/core';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {selectTaskById} from '../../../store/tasks/selectors';
 import styled from 'styled-components/native';
-import InputAdd from '../InputAdd';
+import {Form, Field} from 'react-final-form';
+import InputField from '../../../components/InputField';
+import Member from './Member';
+import Comment from './Comment';
 
 const TaskScreen: React.FC<Props> = () => {
   const navigation = useNavigation();
@@ -76,7 +78,9 @@ const TaskScreen: React.FC<Props> = () => {
       <Members>
         <MembersTitle>members</MembersTitle>
         <MembersContent>
-          {/* {MemberComponent} */}
+          <Member />
+          <Member />
+          <Member />
           <Addmember>
             <Image source={require('../../../icons/AddWhite.png')}></Image>
           </Addmember>
@@ -84,12 +88,26 @@ const TaskScreen: React.FC<Props> = () => {
       </Members>
       <Comments>
         <CommentsTitle>comments</CommentsTitle>
-        <CommentsContent>{/* {CommentComponent} */}</CommentsContent>
-        <AddComment>
-          <AddCommentImage
-            source={require('../../../icons/CommentAdd.png')}></AddCommentImage>
-          <CommentInput placeholder="Add a comment..."></CommentInput>
-        </AddComment>
+        <CommentsList>
+          <Comment />
+        </CommentsList>
+        <FormWrapper>
+          <Form
+            onSubmit={onSubmit}
+            render={({handleSubmit}) => (
+              <AddComment>
+                <AddCommentImage onPress={() => handleSubmit()}>
+                  <Image
+                    source={require('../../../icons/CommentAdd.png')}></Image>
+                </AddCommentImage>
+                <Field
+                  name="CommentText"
+                  component={InputField}
+                  placeholder="Add a comment..."
+                />
+              </AddComment>
+            )}></Form>
+        </FormWrapper>
       </Comments>
     </Container>
   );
@@ -214,7 +232,6 @@ const Opened = styled.Text`
 `;
 const Members = styled.View`
   width: 100%;
-  /* align-self: stretch; */
   padding: 20px 15px 20px 15px;
   justify-content: flex-start;
 `;
@@ -231,24 +248,27 @@ const MembersContent = styled.View`
   margin-top: 15px;
 `;
 const Addmember = styled.TouchableOpacity``;
-const Comments = Members;
-const CommentsTitle = MembersTitle;
-const CommentsContent = styled.View`
+const Comments = styled.View`
+  width: 100%;
+`;
+const CommentsTitle = styled(MembersTitle)`
+  padding: 10px 15px 0 15px;
+`;
+const CommentsList = styled.View`
   margin-top: 15px;
+  border-top-width: 1px;
+  border-top-color: #e5e5e5;
+`;
+const FormWrapper = styled.View`
+  padding: 0 15px 20px 15px;
 `;
 const AddComment = styled.View`
   justify-content: flex-start;
   align-items: center;
   flex-flow: row nowrap;
 `;
-const AddCommentImage = styled.Image`
+const AddCommentImage = styled.TouchableOpacity`
   width: 20px;
   height: 20px;
   margin-right: 6px;
-`;
-const CommentInput = styled.TextInput`
-  font-family: SF UI Text;
-  font-size: 17px;
-  line-height: 20px;
-  color: rgba(81, 77, 71, 1);
 `;

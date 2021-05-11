@@ -2,11 +2,6 @@ import React from 'react';
 import styled from 'styled-components/native';
 
 const InputField: React.FC<Props> = ({placeholder, input}) => {
-  //   <Field
-  //   name="PrayerName"
-  //   component={InputField}
-  //   placeholder="Add a prayer..."
-  // />
   return <Input placeholder={placeholder} {...input} />;
 };
 
