@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Form, Field} from 'react-final-form';
-import {Text, View, TouchableOpacity} from 'react-native';
+import {Text, View} from 'react-native';
 import styled from 'styled-components/native';
-import {PrivateValueStore, useNavigation} from '@react-navigation/core';
+import {useNavigation} from '@react-navigation/core';
 import {useDispatch} from 'react-redux';
 import AppRoutes from '../../route';
 import {setUser} from '../../../store/user/actions';

@@ -23,13 +23,25 @@ const DeskScreen: React.FC<Props> = () => {
   const tasksIds = useSelector((state: RootState) =>
     selectTasksIdsByDeskId(state, id),
   )!;
-
   // const tasks = useSelector(selectTasksIds);
   const tasksSubscribed = useSelector(selectSubscribedTasksIds);
   const tasksAnswered = useSelector(selectAnsweredTasksIds);
   const tasksUnanswered = useSelector(selectUnansweredTasksIds);
 
   const [tab, setTab] = useState(true);
+  const [myPrayers, setMyPrayres] = useState(true);
+  const [subscribed, setSubscribed] = useState(false);
+  const handleLeftTabClick = () => {
+    setTab(true);
+    setMyPrayres(true);
+    setSubscribed(false);
+  };
+  const handleRightTabClick = () => {
+    setTab(false);
+    setMyPrayres(false);
+    setSubscribed(true);
+  };
+
   const [btnPushed, setBtnPushed] = useState(false);
   const [btnText, setBtnText] = useState('show answered prayers');
   const handleBtnPush = () => {
@@ -42,6 +54,10 @@ const DeskScreen: React.FC<Props> = () => {
         setBtnPushed(false);
         setBtnText('show answered prayers');
     }
+  };
+
+  const onSubmit = (values: any) => {
+    console.log('values', values);
   };
 
   return (
@@ -58,12 +74,12 @@ const DeskScreen: React.FC<Props> = () => {
           <Title>{title}</Title>
         </TitleWrapper>
         <TabsContainer>
-          <MyPrayers onPress={() => setTab(true)}>
-            <MyPrayersText>my prayers</MyPrayersText>
+          <MyPrayers active={myPrayers} onPress={handleLeftTabClick}>
+            <MyPrayersText active={myPrayers}>my prayers</MyPrayersText>
           </MyPrayers>
-          <Subscribed onPress={() => setTab(false)}>
+          <Subscribed active={subscribed} onPress={handleRightTabClick}>
             <SubscribedInnerContent>
-              <SubscribedText>subscribed</SubscribedText>
+              <SubscribedText active={subscribed}>subscribed</SubscribedText>
               <SubscribedIcon>
                 <SubscribedIconText>3</SubscribedIconText>
               </SubscribedIcon>
@@ -71,7 +87,7 @@ const DeskScreen: React.FC<Props> = () => {
           </Subscribed>
         </TabsContainer>
       </DeskScreenHeader>
-      <InputAdd></InputAdd>
+      <InputAdd onSubmit={onSubmit}></InputAdd>
       {/* {desksIds.map(id => {
         return <Desk id={id} key={id} />;
       })} */}
@@ -104,6 +120,7 @@ const DeskScreen: React.FC<Props> = () => {
 export default DeskScreen;
 
 type Props = {id: string};
+type TouchableOpacityProps = {active: boolean};
 
 const Container = styled.SafeAreaView`
   background: #ffffff;
@@ -118,10 +135,7 @@ const DeskScreenHeader = styled.View`
   border-bottom-color: #e5e5e5;
 `;
 const DeskScreenBody = styled.FlatList``;
-const AnsweredPrayers = styled.FlatList`
-  /* align-self: stretch; */
-  /* align-items: center; */
-`;
+const AnsweredPrayers = styled.FlatList``;
 const TitleWrapper = styled.View`
   flex: 1;
   justify-content: center;
@@ -145,14 +159,14 @@ const MyPrayers = styled.TouchableOpacity`
   width: 50%;
   justify-content: center;
   align-items: center;
-  /* color: rgba(114, 168, 188, 1); */
   border-bottom-width: 1px;
-  border-bottom-color: rgba(114, 168, 188, 1);
+  border-bottom-color: ${props =>
+    props.active ? 'rgba(114, 168, 188, 1)' : 'rgba(200, 200, 200, 1)'};
 `;
 const MyPrayersText = styled.Text`
   text-transform: uppercase;
-  color: rgba(114, 168, 188, 1);
-  /* color: rgba(200, 200, 200, 1); */
+  color: ${props =>
+    props.active ? 'rgba(114, 168, 188, 1)' : 'rgba(200, 200, 200, 1)'};
 `;
 const Subscribed = styled.TouchableOpacity`
   width: 50%;
@@ -160,8 +174,8 @@ const Subscribed = styled.TouchableOpacity`
   align-items: center;
 
   border-bottom-width: 1px;
-  border-bottom-color: rgba(200, 200, 200, 1);
-  /* border-bottom-color: rgba(114, 168, 188, 1); */
+  border-bottom-color: ${props =>
+    props.active ? 'rgba(114, 168, 188, 1)' : 'rgba(200, 200, 200, 1)'};
 `;
 const SubscribedInnerContent = styled.View`
   flex: 1;
@@ -171,8 +185,8 @@ const SubscribedInnerContent = styled.View`
 `;
 const SubscribedText = styled.Text`
   text-transform: uppercase;
-  /* color: rgba(114, 168, 188, 1); */
-  color: rgba(200, 200, 200, 1);
+  color: ${props =>
+    props.active ? 'rgba(114, 168, 188, 1)' : 'rgba(200, 200, 200, 1)'};
 `;
 const SubscribedIcon = styled.View`
   width: 15px;

@@ -5,11 +5,16 @@ import {useRoute, useNavigation} from '@react-navigation/core';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {selectTaskById} from '../../../store/tasks/selectors';
 import styled from 'styled-components/native';
+import InputAdd from '../InputAdd';
 
 const TaskScreen: React.FC<Props> = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const {title} = route.params;
+
+  const onSubmit = (values: any) => {
+    console.log('values', values);
+  };
 
   return (
     <Container>

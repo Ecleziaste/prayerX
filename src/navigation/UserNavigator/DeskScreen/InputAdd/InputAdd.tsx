@@ -1,14 +1,26 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import InputField from '../../../../components/InputField';
+import {Form, Field} from 'react-final-form';
+import {Image} from 'react-native';
 
-const InputAdd: React.FC<Props> = () => {
+const InputAdd: React.FC<Props> = ({onSubmit}) => {
   return (
     <Container>
-      <AddPrayer>
-        <AddImage source={require('../../../../icons/AddBig.png')}></AddImage>
-        <InputField placeholder="Add a prayer..." input={() => {}}></InputField>
-      </AddPrayer>
+      <Form
+        onSubmit={onSubmit}
+        render={({handleSubmit}) => (
+          <AddPrayer>
+            <AddImage onPress={() => handleSubmit()}>
+              <Image source={require('../../../../icons/AddBig.png')}></Image>
+            </AddImage>
+            <Field
+              name="PrayerName"
+              component={InputField}
+              placeholder="Add a prayer..."
+            />
+          </AddPrayer>
+        )}></Form>
     </Container>
   );
 };
@@ -26,7 +38,7 @@ const AddPrayer = styled.TouchableOpacity`
   align-items: center;
   flex-flow: row nowrap;
 `;
-const AddImage = styled.Image`
+const AddImage = styled.TouchableOpacity`
   width: 20px;
   height: 20px;
   margin: 0 6px 0 14px;
@@ -34,4 +46,6 @@ const AddImage = styled.Image`
 
 export default InputAdd;
 
-type Props = {};
+type Props = {
+  onSubmit: (values: any) => void;
+};

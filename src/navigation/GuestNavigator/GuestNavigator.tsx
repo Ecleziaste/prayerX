@@ -19,7 +19,7 @@ const GuestNavigator = () => {
       <Stack.Screen
         name={AppRoutes.RegisterScreen}
         component={RegisterScreen}
-        // options={{headerShown: false}}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );
