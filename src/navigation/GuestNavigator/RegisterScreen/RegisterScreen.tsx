@@ -1,10 +1,10 @@
 import React from 'react';
 import {Form, Field} from 'react-final-form';
-import {Image} from 'react-native';
+import {Alert, Image} from 'react-native';
 import styled from 'styled-components/native';
 import {useNavigation} from '@react-navigation/core';
 import {useDispatch} from 'react-redux';
-import {setUser} from '../../../store/user/actions';
+import {setUser, signUp} from '../../../store/user/actions';
 import ButtonLong from '../../../components/ButtonLong';
 import InputField from '../../../components/InputField';
 import InputContainer from '../../../components/InputContainer';
@@ -13,13 +13,24 @@ export const RegisterScreen: React.FC<Props> = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const onSubmit = (values: ValuesType) => {
-    console.log('values', values);
-    if (values.Password === values.CheckPassword) {
-      dispatch(setUser(true));
-    } else {
-      console.log('пароли в полях не совпадают');
+  const onSubmit = async (values: ValuesType) => {
+    const data = {
+      email: 'dtestqwe132@mail.ru',
+      password: '1234',
+      name: 'Petya',
+    };
+    try {
+      await dispatch(signUp(data));
+    } catch (err) {
+      Alert.alert(err.message);
     }
+
+    // console.log('values', values);
+    // if (values.Password === values.CheckPassword) {
+    //   dispatch(setUser(true));
+    // } else {
+    //   console.log('пароли в полях не совпадают');
+    // }
   };
 
   return (

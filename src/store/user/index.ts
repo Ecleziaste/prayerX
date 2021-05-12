@@ -1,2 +1,2 @@
-export {userReducer} from './reducer';
-export * as actions from './actions';
+export {reducer, actions} from './slice';
+

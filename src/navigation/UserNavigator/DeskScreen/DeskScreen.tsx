@@ -14,11 +14,15 @@ import styled from 'styled-components/native';
 import InputAdd from './InputAdd';
 import Task from './Task';
 import ButtonLong from '../../../components/ButtonLong';
+import {DeskScreenProps} from '../UserNavigator';
 
-const DeskScreen: React.FC<Props> = () => {
+const DeskScreen: React.FC<Props> = ({
+  route: {
+    params: {id},
+  },
+}) => {
   const navigation = useNavigation();
-  const route = useRoute();
-  const {id} = route.params;
+
   const {title} = useSelector((state: RootState) => selectDeskById(state, id))!;
   const tasksIds = useSelector((state: RootState) =>
     selectTasksIdsByDeskId(state, id),
@@ -119,8 +123,7 @@ const DeskScreen: React.FC<Props> = () => {
 
 export default DeskScreen;
 
-type Props = {id: string};
-type TouchableOpacityProps = {active: boolean};
+interface Props extends DeskScreenProps {}
 
 const Container = styled.SafeAreaView`
   background: #ffffff;
@@ -135,7 +138,9 @@ const DeskScreenHeader = styled.View`
   border-bottom-color: #e5e5e5;
 `;
 const DeskScreenBody = styled.FlatList``;
-const AnsweredPrayers = styled.FlatList``;
+const AnsweredPrayers = styled.FlatList`
+  text-decoration: line-through;
+`;
 const TitleWrapper = styled.View`
   flex: 1;
   justify-content: center;
@@ -155,7 +160,7 @@ const TabsContainer = styled.View`
   justify-content: space-evenly;
   /* padding-bottom: 17px; */
 `;
-const MyPrayers = styled.TouchableOpacity`
+const MyPrayers = styled.TouchableOpacity<{active: boolean}>`
   width: 50%;
   justify-content: center;
   align-items: center;
@@ -163,12 +168,12 @@ const MyPrayers = styled.TouchableOpacity`
   border-bottom-color: ${props =>
     props.active ? 'rgba(114, 168, 188, 1)' : 'rgba(200, 200, 200, 1)'};
 `;
-const MyPrayersText = styled.Text`
+const MyPrayersText = styled.Text<{active: boolean}>`
   text-transform: uppercase;
   color: ${props =>
     props.active ? 'rgba(114, 168, 188, 1)' : 'rgba(200, 200, 200, 1)'};
 `;
-const Subscribed = styled.TouchableOpacity`
+const Subscribed = styled.TouchableOpacity<{active: boolean}>`
   width: 50%;
   justify-content: center;
   align-items: center;
@@ -183,7 +188,7 @@ const SubscribedInnerContent = styled.View`
   justify-content: center;
   align-items: center;
 `;
-const SubscribedText = styled.Text`
+const SubscribedText = styled.Text<{active: boolean}>`
   text-transform: uppercase;
   color: ${props =>
     props.active ? 'rgba(114, 168, 188, 1)' : 'rgba(200, 200, 200, 1)'};

@@ -11,6 +11,7 @@ import CheckBox from '@react-native-community/checkbox';
 const Task: React.FC<Props> = ({id}) => {
   const navigation = useNavigation();
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  const [titleStyle, setTitleStyle] = useState('none');
   const {title} = useSelector((state: RootState) => selectTaskById(state, id))!;
   const {users} = useSelector((state: RootState) => selectTaskById(state, id))!;
   const {prayers} = useSelector((state: RootState) =>
@@ -23,14 +24,18 @@ const Task: React.FC<Props> = ({id}) => {
         <StateIcon source={require('../../../../icons/State/Red.png')} />
       </StateBox>
       <CheckBox
+        // tintColors={{true: #ffffff, false: #ffffff}}
         disabled={false}
         value={toggleCheckBox}
         onValueChange={newValue => setToggleCheckBox(newValue)}></CheckBox>
       <TouchableText
         onPress={() => navigation.navigate(AppRoutes.TaskScreen, {title})}>
-        <TaskText numberOfLines={1} ellipsizeMode="tail">
+        <TaskTitle
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          active={toggleCheckBox}>
           {title}
-        </TaskText>
+        </TaskTitle>
       </TouchableText>
       <UserIcon source={require('../../../../icons/User/user.png')}></UserIcon>
       <UserCount>
@@ -64,9 +69,10 @@ const TaskContainer = styled.View`
 const TouchableText = styled.TouchableOpacity`
   flex: 1;
 `;
-const TaskText = styled.Text`
+const TaskTitle = styled.Text`
   font-size: 17px;
   line-height: 20px;
+  text-decoration-line: ${props => (props.active ? 'line-through' : 'none')};
 `;
 const StateBox = styled.View`
   width: 24px;
@@ -87,5 +93,8 @@ const PrayerCount = styled.View`
 `;
 
 styled(CheckBox)`
-  margin: 20px;
+  tintcolors: {
+    true: #ffffff;
+    false: #ffffff;
+  }
 `;

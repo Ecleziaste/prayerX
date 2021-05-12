@@ -90,25 +90,26 @@ const TaskScreen: React.FC<Props> = () => {
         <CommentsTitle>comments</CommentsTitle>
         <CommentsList>
           <Comment />
+          <Comment />
         </CommentsList>
-        <FormWrapper>
-          <Form
-            onSubmit={onSubmit}
-            render={({handleSubmit}) => (
-              <AddComment>
-                <AddCommentImage onPress={() => handleSubmit()}>
-                  <Image
-                    source={require('../../../icons/CommentAdd.png')}></Image>
-                </AddCommentImage>
-                <Field
-                  name="CommentText"
-                  component={InputField}
-                  placeholder="Add a comment..."
-                />
-              </AddComment>
-            )}></Form>
-        </FormWrapper>
       </Comments>
+      <FormWrapper>
+        <Form
+          onSubmit={onSubmit}
+          render={({handleSubmit}) => (
+            <AddComment>
+              <AddCommentImage onPress={() => handleSubmit()}>
+                <Image
+                  source={require('../../../icons/CommentAdd.png')}></Image>
+              </AddCommentImage>
+              <Field
+                name="CommentText"
+                component={InputField}
+                placeholder="Add a comment..."
+              />
+            </AddComment>
+          )}></Form>
+      </FormWrapper>
     </Container>
   );
 };
@@ -123,7 +124,7 @@ const Container = styled.SafeAreaView`
   background: #ffffff;
   flex: 1;
   align-self: stretch;
-  align-items: center;
+  /* align-items: center; */
 `;
 const Header = styled.View`
   width: 100%;
@@ -260,12 +261,18 @@ const CommentsList = styled.View`
   border-top-color: #e5e5e5;
 `;
 const FormWrapper = styled.View`
-  padding: 0 15px 20px 15px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 0 15px;
 `;
 const AddComment = styled.View`
+  /* width: 100%;
+  position: absolute;
+  bottom: ; */
+  flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: center;
-  flex-flow: row nowrap;
 `;
 const AddCommentImage = styled.TouchableOpacity`
   width: 20px;

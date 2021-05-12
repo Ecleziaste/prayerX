@@ -8,6 +8,9 @@ import {selectUser} from '../store/user/selectors';
 const Navigator = () => {
   const user = useSelector(selectUser);
 
+  console.log('user', user);
+  
+
   return (
     <NavigationContainer>
       {user ? <UserNavigator /> : <GuestNavigator />}

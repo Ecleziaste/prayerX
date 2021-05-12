@@ -7,10 +7,10 @@ const Comment: React.FC<Props> = () => {
       <UserPic>{/* <Image></Image> */}</UserPic>
       <Info>
         <TopRow>
-          <UserName></UserName>
-          <UserActivity></UserActivity>
+          <UserName>Johny</UserName>
+          <UserActivity>4 days ago</UserActivity>
         </TopRow>
-        <UserComment></UserComment>
+        <UserComment>Hey yo!</UserComment>
       </Info>
     </Container>
   );
@@ -20,10 +20,15 @@ const Container = styled.View`
   width: 100%;
   height: 74px;
   flex-flow: row nowrap;
+  border-bottom-width: 1px;
+  border-bottom-color: #e5e5e5;
 `;
 const UserPic = styled.View`
   width: 46px;
   height: 46px;
+  margin: 14px 9px 14px 12px;
+  /* justify-content: center;
+  align-items: center; */
   border-width: 1px;
   border-color: goldenrod;
   border-radius: 50px;
@@ -31,10 +36,29 @@ const UserPic = styled.View`
 const Info = styled.View``;
 const TopRow = styled.View`
   flex-flow: row nowrap;
+  margin-top: 15px;
 `;
-const UserName = styled.Text``;
-const UserActivity = styled.Text``;
-const UserComment = styled.Text``;
+const UserName = styled.Text`
+  margin-right: 5px;
+  font-family: SF UI Text;
+  font-size: 17px;
+  line-height: 20px;
+  color: #514d47;
+`;
+const UserActivity = styled.Text`
+  align-self: flex-end;
+  font-family: SF UI Text;
+  font-size: 13px;
+  line-height: 16px;
+  color: #9c9c9c;
+`;
+const UserComment = styled.Text`
+  margin-top: 2px;
+  font-family: SF UI Text;
+  font-size: 17px;
+  line-height: 20px;
+  color: #514d47;
+`;
 
 export default Comment;
 

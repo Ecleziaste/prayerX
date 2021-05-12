@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {View, Image} from 'react-native';
 import styled from 'styled-components/native';
 import Desk from './Desk';
@@ -6,17 +6,22 @@ import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {selectDesks} from '../../../store/desks/selectors';
 import {useNavigation} from '@react-navigation/core';
 import {setUser} from '../../../store/user/actions';
+import CROSS_ICON from '../../../icons/Cross.png';
 
 const DeskListScreen: React.FC<Props> = () => {
   const desksIds = useSelector(selectDesks, shallowEqual);
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  
+  useEffect(()=> {
+    dispatch(getColumns())
+  },[])
 
   return (
     <Container>
       <DesklistHeader>
         <CloseDeskListBtn onPress={() => dispatch(setUser(null))}>
-          <Image source={require('../../../icons/Cross.png')} />
+          <Image source={CROSS_ICON} />
         </CloseDeskListBtn>
         <NewDeskTitle defaultValue="My Desk"></NewDeskTitle>
         <AddNewDeskBtn>
