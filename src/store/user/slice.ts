@@ -1,13 +1,5 @@
-import {createReducer, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {setUser, signUp} from './actions';
-
-// const initialState: null | boolean = null;
-
-// export const userReducer = createReducer(initialState, builder => {
-//   builder.addCase(setUser, (state, action) => {
-//     return (state = action.payload);
-//   });
-// });
 
 const initialState = null as null | User;
 
@@ -21,6 +13,7 @@ const userSlice = createSlice({
     },
   },
 });
+
 const {reducer, actions} = userSlice;
 
 export {reducer, actions};

@@ -1,21 +1,39 @@
 import React, {useEffect} from 'react';
-import {View, Image} from 'react-native';
+import {View, Image, Alert} from 'react-native';
 import styled from 'styled-components/native';
+import {Form, Field} from 'react-final-form';
+import InputField from '../../../components/InputField';
 import Desk from './Desk';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {selectDesks} from '../../../store/desks/selectors';
 import {useNavigation} from '@react-navigation/core';
 import {setUser} from '../../../store/user/actions';
 import CROSS_ICON from '../../../icons/Cross.png';
-import {getColumns} from '../../../store/desks/actions';
+import {getColumns, newColumn} from '../../../store/desks/actions';
 
 const DeskListScreen: React.FC<Props> = () => {
   const desksIds = useSelector(selectDesks, shallowEqual);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
+  const onSubmit = async (values: ValuesType) => {
+    console.log('values', values);
+
+    const data = {
+      title: 'NewTitle',
+      description: null,
+    };
+    try {
+      await dispatch(newColumn(data));
+    } catch (err) {
+      Alert.alert(err.message);
+    }
+  };
+
+  const userId = 206;
+
   useEffect(() => {
-    dispatch(getColumns());
+    dispatch(getColumns(userId));
   }, []);
 
   return (
@@ -24,12 +42,23 @@ const DeskListScreen: React.FC<Props> = () => {
         <CloseDeskListBtn onPress={() => dispatch(setUser(null))}>
           <Image source={CROSS_ICON} />
         </CloseDeskListBtn>
-        <NewDeskTitle defaultValue="My Desk"></NewDeskTitle>
-        <AddNewDeskBtn>
-          <View>
-            <Image source={require('../../../icons/Plus.png')} />
-          </View>
-        </AddNewDeskBtn>
+        <DeskTitle>
+          <Form
+            onSubmit={onSubmit}
+            render={({handleSubmit}) => (
+              <InputWrapper>
+                <Field
+                  name="PrayerName"
+                  component={InputField}
+                  placeholder="Enter desk name..."
+                  defaultValue="My Desk"
+                />
+                <AddNewDeskBtn onPress={() => handleSubmit()}>
+                  <Image source={require('../../../icons/Plus.png')} />
+                </AddNewDeskBtn>
+              </InputWrapper>
+            )}></Form>
+        </DeskTitle>
       </DesklistHeader>
       <DesklistBody>
         {desksIds.map(id => {
@@ -43,6 +72,7 @@ const DeskListScreen: React.FC<Props> = () => {
 export default DeskListScreen;
 
 type Props = {};
+type ValuesType = {title: string; description: string | null};
 
 const Container = styled.View`
   margin: 0;
@@ -68,13 +98,17 @@ const CloseDeskListBtn = styled.TouchableOpacity`
   height: 16px;
 `;
 const AddNewDeskBtn = CloseDeskListBtn;
-const NewDeskTitle = styled.TextInput`
+const DeskTitle = styled.View`
   align-items: center;
   justify-content: center;
+  /* text-align: center; */
   font-size: 17px;
 `;
 const DesklistBody = styled.View`
   width: 100%;
   padding: 0 15px 0 15px;
   align-items: center;
+`;
+const InputWrapper = styled.View`
+  flex-flow: row nowrap;
 `;

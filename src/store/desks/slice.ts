@@ -1,40 +1,35 @@
 import {createReducer, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {DeskType} from '../types';
-import {getColumns} from './actions';
+import {getColumns, newColumn} from './actions';
 
-// const initialState: Array<DeskType> = [
-//   {title: 'To Do', id: '1'},
-//   {title: 'In Progress', id: '2'},
-//   {title: 'Completed', id: '3'},
-// ];
-
-// export const desksReducer = createReducer(initialState, builder => {
-
-// });
-
-const initialState = [] as Array<Columns>;
+const initialState = [] as Array<Column>;
 
 const userSlice = createSlice({
   name: 'desks',
   initialState,
-  reducers: {},
+  reducers: {
+    // newColumn: (state, action: PayloadAction<Column>) =>
+    //   state.unshift(action.payload),
+  },
   extraReducers: {
     [getColumns.fulfilled.type]: (
       state,
-      action: PayloadAction<Array<Columns>>,
+      action: PayloadAction<Array<Column>>,
     ) => {
-      console.log('action', action);
       return action.payload;
     },
+    // [newColumn.fulfilled.type]: (state, action: PayloadAction<Column>) => {
+    //   console.log('action', action);
+    //   return state.unshift(action.payload);
+    // },
   },
 });
 const {reducer, actions} = userSlice;
 
 export {reducer, actions};
 
-export type Columns = {
+export type Column = {
   id: number;
   title: string;
-  description: null;
+  description: null | string;
   userId: number;
 };

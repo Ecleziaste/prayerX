@@ -4,7 +4,19 @@ import {ColumnsApi} from '../desks/api';
 
 export const changeTitle = createAction<ActionType>('desks/change');
 
-export const getColumns = createAsyncThunk<any, Params>(
+export const getColumns = createAsyncThunk<any, number>(
+  'columns',
+  async params => {
+    const {data} = await ColumnsApi(params);
+    if (data.message) {
+      throw new Error('Error');
+    }
+
+    return data;
+  },
+);
+
+export const newColumn = createAsyncThunk<any, Params>(
   'columns',
   async params => {
     const {data} = await ColumnsApi(params);
@@ -17,4 +29,5 @@ export const getColumns = createAsyncThunk<any, Params>(
   },
 );
 
-type Params = {email: string; password: string; name: string};
+type Params = {title: string; description: string | null};
+// type Params = {email: string; password: string; name: string};
