@@ -15,22 +15,18 @@ export const RegisterScreen: React.FC<Props> = () => {
 
   const onSubmit = async (values: ValuesType) => {
     const data = {
-      email: 'dtestqwe132@mail.ru',
-      password: '1234',
-      name: 'Petya',
+      // email: '123123@mail.ru',
+      // password: '17',
+      // name: 'Boiiii',
+      email: values.Email,
+      password: values.Password,
+      name: values.Login,
     };
     try {
       await dispatch(signUp(data));
     } catch (err) {
       Alert.alert(err.message);
     }
-
-    // console.log('values', values);
-    // if (values.Password === values.CheckPassword) {
-    //   dispatch(setUser(true));
-    // } else {
-    //   console.log('пароли в полях не совпадают');
-    // }
   };
 
   return (
@@ -45,6 +41,14 @@ export const RegisterScreen: React.FC<Props> = () => {
           <FormWrapper>
             <InputContainer>
               <Field
+                name="Email"
+                component={InputField}
+                validate={value => (value ? undefined : 'Required')}
+                placeholder="Введите почту для регистрации"
+              />
+            </InputContainer>
+            <InputContainer>
+              <Field
                 name="Login"
                 component={InputField}
                 validate={value => (value ? undefined : 'Required')}
@@ -57,14 +61,6 @@ export const RegisterScreen: React.FC<Props> = () => {
                 component={InputField}
                 validate={value => (value ? undefined : 'Required')}
                 placeholder="Введите пароль"
-              />
-            </InputContainer>
-            <InputContainer>
-              <Field
-                name="CheckPassword"
-                component={InputField}
-                validate={value => (value ? undefined : 'Required')}
-                placeholder="Повторите пароль"
               />
             </InputContainer>
 
@@ -82,7 +78,7 @@ type Props = {onSubmit: (values: ValuesType) => void};
 type ValuesType = {
   Login: string;
   Password: string;
-  CheckPassword: string;
+  Email: string;
 };
 
 const Container = styled.View`

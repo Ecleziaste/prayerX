@@ -17,8 +17,6 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: {
     [signUp.fulfilled.type]: (state, action: PayloadAction<User>) => {
-      console.log('action', action);
-
       return action.payload;
     },
   },
@@ -35,4 +33,3 @@ export type User = {
   columns: Array<any>;
   id: number;
 };
-

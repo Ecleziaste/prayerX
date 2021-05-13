@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {View, Image} from 'react-native';
 import styled from 'styled-components/native';
 import Desk from './Desk';
@@ -7,15 +7,16 @@ import {selectDesks} from '../../../store/desks/selectors';
 import {useNavigation} from '@react-navigation/core';
 import {setUser} from '../../../store/user/actions';
 import CROSS_ICON from '../../../icons/Cross.png';
+import {getColumns} from '../../../store/desks/actions';
 
 const DeskListScreen: React.FC<Props> = () => {
   const desksIds = useSelector(selectDesks, shallowEqual);
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  
-  useEffect(()=> {
-    dispatch(getColumns())
-  },[])
+
+  useEffect(() => {
+    dispatch(getColumns());
+  }, []);
 
   return (
     <Container>
