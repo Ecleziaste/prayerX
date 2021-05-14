@@ -15,7 +15,7 @@ const InputAdd: React.FC<Props> = ({onSubmit}) => {
               <Image source={require('../../../../icons/AddBig.png')}></Image>
             </AddImage>
             <Field
-              name="PrayerName"
+              name="title"
               component={InputField}
               placeholder="Add a prayer..."
             />

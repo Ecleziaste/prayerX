@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View, Image, Alert} from 'react-native';
+import {Image, Alert} from 'react-native';
 import styled from 'styled-components/native';
 import {Form, Field} from 'react-final-form';
 import InputFieldCentered from '../../../components/InputFieldCentered';
@@ -9,30 +9,22 @@ import {selectDesks} from '../../../store/desks/selectors';
 import {useNavigation} from '@react-navigation/core';
 import {setUser} from '../../../store/user/actions';
 import CROSS_ICON from '../../../icons/Cross.png';
-import {getColumns, newColumn} from '../../../store/desks/actions';
+import {getColumns, addColumn} from '../../../store/desks/actions';
 
 const DeskListScreen: React.FC<Props> = () => {
   const desksIds = useSelector(selectDesks, shallowEqual);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const onSubmit = async (values: ValuesType) => {
-    console.log('values', values);
-
-    const data = {
-      title: values.title,
-      description: '',
-    };
+  const onSubmit = async ({title}: {title: string}) => {
     try {
-      await dispatch(newColumn(data));
-      await dispatch(getColumns(userId));
+      await dispatch(addColumn({title, description: ''}));
     } catch (err) {
       Alert.alert(err.message);
     }
   };
 
   const userId = 206;
-
   useEffect(() => {
     dispatch(getColumns(userId));
   }, []);
@@ -49,17 +41,18 @@ const DeskListScreen: React.FC<Props> = () => {
               </CloseDeskListBtn>
               <InputWrapper>
                 <Field
-                  name="DeskName"
+                  name="title"
                   component={InputFieldCentered}
                   placeholder="Enter desk name..."
                   defaultValue="My Desk"
                 />
               </InputWrapper>
-              <AddNewDeskBtn onPress={() => handleSubmit()}>
+              <AddNewDeskBtn onPress={handleSubmit}>
                 <Image source={require('../../../icons/Plus.png')} />
               </AddNewDeskBtn>
             </DeskTitle>
-          )}></Form>
+          )}
+        />
       </DesklistHeader>
       <DesklistBody>
         {desksIds.map(id => {
@@ -73,7 +66,6 @@ const DeskListScreen: React.FC<Props> = () => {
 export default DeskListScreen;
 
 type Props = {};
-type ValuesType = {title: string; description: string | null};
 
 const Container = styled.View`
   margin: 0;

@@ -1,15 +1,12 @@
-import {createReducer, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {getColumns, newColumn} from './actions';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {getColumns, addColumn} from './actions';
 
 const initialState = [] as Array<Column>;
 
-const userSlice = createSlice({
+const columnsSlice = createSlice({
   name: 'desks',
   initialState,
-  reducers: {
-    // newColumn: (state, action: PayloadAction<Column>) =>
-    //   state.unshift(action.payload),
-  },
+  reducers: {},
   extraReducers: {
     [getColumns.fulfilled.type]: (
       state,
@@ -17,13 +14,12 @@ const userSlice = createSlice({
     ) => {
       return action.payload;
     },
-    // [newColumn.fulfilled.type]: (state, action: PayloadAction<Column>) => {
-    //   console.log('action', action);
-    //   return state.unshift(action.payload);
-    // },
+    [addColumn.fulfilled.type]: (state, action: PayloadAction<Column>) => {
+      return [action.payload, ...state];
+    },
   },
 });
-const {reducer, actions} = userSlice;
+const {reducer, actions} = columnsSlice;
 
 export {reducer, actions};
 
@@ -32,4 +28,5 @@ export type Column = {
   title: string;
   description: null | string;
   userId: number;
+  message: string;
 };

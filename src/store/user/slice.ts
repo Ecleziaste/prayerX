@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {setUser, signUp} from './actions';
+import {setUser, signIn, signUp} from './actions';
 
 const initialState = null as null | User;
 
@@ -9,6 +9,12 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: {
     [signUp.fulfilled.type]: (state, action: PayloadAction<User>) => {
+      return action.payload;
+    },
+    [signIn.fulfilled.type]: (state, action: PayloadAction<User>) => {
+      return action.payload;
+    },
+    [setUser.type]: (state, action: PayloadAction<any>) => {
       return action.payload;
     },
   },
@@ -25,4 +31,5 @@ export type User = {
   token: string;
   columns: Array<any>;
   id: number;
+  message: string;
 };

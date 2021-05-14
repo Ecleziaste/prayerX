@@ -1,11 +1,12 @@
 import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
 import {ActionType} from '../types';
 import {ColumnsApi, addColumnApi} from '../desks/api';
+import {Column} from './slice';
 
 export const changeTitle = createAction<ActionType>('desks/change');
 
 export const getColumns = createAsyncThunk<any, number>(
-  'columns',
+  'columns/getColumns',
   async params => {
     const {data} = await ColumnsApi();
     if (data.message) {
@@ -16,8 +17,8 @@ export const getColumns = createAsyncThunk<any, number>(
   },
 );
 
-export const newColumn = createAsyncThunk<any, Params>(
-  'columns',
+export const addColumn = createAsyncThunk<Column, Params>(
+  'columns/addColumn',
   async params => {
     const {data} = await addColumnApi(params);
     if (data.message) {

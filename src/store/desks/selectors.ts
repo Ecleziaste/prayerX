@@ -6,7 +6,6 @@ export const selectDesks = (state: RootState) =>
 
 export const selectDeskById = createSelector(
   (state: RootState) => state.desks,
-  (_: RootState, id: string) => id,
+  (_: RootState, id: number) => id,
   (desks, id) => desks.find(desk => desk.id === id),
 );
-

@@ -1,7 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {RootState} from '../../../store';
+import {Alert} from 'react-native';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {
+  selectTasksIds,
   selectSubscribedTasksIds,
   selectAnsweredTasksIds,
   selectUnansweredTasksIds,
@@ -15,12 +17,14 @@ import InputAdd from './InputAdd';
 import Task from './Task';
 import ButtonLong from '../../../components/ButtonLong';
 import {DeskScreenProps} from '../UserNavigator';
+import {getPrayers, addPrayer} from '../../../store/tasks/actions';
 
 const DeskScreen: React.FC<Props> = ({
   route: {
     params: {id},
   },
 }) => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const {title} = useSelector((state: RootState) => selectDeskById(state, id))!;
@@ -60,9 +64,18 @@ const DeskScreen: React.FC<Props> = ({
     }
   };
 
-  const onSubmit = (values: any) => {
-    console.log('values', values);
+  const onSubmit = ({title}: {title: string}) => {
+    try {
+      // await
+      dispatch(addPrayer({title, description: '', checked: false, deskId: id}));
+    } catch (err) {
+      Alert.alert(err.message);
+    }
   };
+
+  useEffect(() => {
+    dispatch(getPrayers());
+  }, []);
 
   return (
     <Container>

@@ -1,10 +1,11 @@
 import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
 import {signUpApi, signInApi} from '../user/api';
+import {User} from './slice';
 
 export const setUser = createAction<any>('user/set');
 
 export const signUp = createAsyncThunk<any, Params>(
-  'auth/signUp',
+  'user/signUp',
   async params => {
     const {data} = await signUpApi(params);
 
@@ -16,8 +17,8 @@ export const signUp = createAsyncThunk<any, Params>(
   },
 );
 
-export const signIn = createAsyncThunk<any, SignInParams>(
-  'auth/signIn',
+export const signIn = createAsyncThunk<User, SignInParams>(
+  'user/signIn',
   async params => {
     const {data} = await signInApi(params);
 

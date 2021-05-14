@@ -15,13 +15,13 @@ export const selectUnansweredTasksIds = (state: RootState) =>
 
 export const selectTaskById = createSelector(
   (state: RootState) => state.tasks,
-  (_: RootState, id: string) => id,
+  (_: RootState, id: number) => id,
   (tasks, id) => tasks.find(task => task.id === id),
 );
 
 export const selectTasksIdsByDeskId = createSelector(
   (state: RootState) => state.tasks,
-  (_: RootState, deskId: string) => deskId,
+  (_: RootState, deskId: number) => deskId,
   (tasks, deskId) =>
     tasks.filter(task => task.deskId === deskId).map(task => task.id),
 );

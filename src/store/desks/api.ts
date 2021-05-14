@@ -6,11 +6,11 @@ export const ColumnsApi = (): AxiosPromise<Column> => {
   return http.get('/columns');
 };
 
-export const addColumnApi = (payload: AddColumn): AxiosPromise<Column> => {
+export const addColumnApi = (payload: AddColumnType): AxiosPromise<Column> => {
   return http.post('/columns', payload);
 };
 
-type AddColumn = {
+type AddColumnType = {
   title: string;
   description: string | null;
 };
