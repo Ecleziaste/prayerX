@@ -11,8 +11,6 @@ export const authMiddleware = () => (next: Dispatch) => (
     action.payload?.token && http.setAuthorizationHeader(action.payload.token);
   }
   if (action.type === REHYDRATE) {
-    console.log('action.payload ==>', action.payload);
-
     action.payload?.user?.token &&
       http.setAuthorizationHeader(action.payload.auth.token);
   }

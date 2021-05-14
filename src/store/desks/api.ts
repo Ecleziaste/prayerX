@@ -6,10 +6,11 @@ export const ColumnsApi = (): AxiosPromise<Column> => {
   return http.get('/columns');
 };
 
-// export const ColumnsApi = (payload: Array<Columns>): AxiosPromise<Columns> => {
-//   return http.get('/columns', payload);
-// };
+export const addColumnApi = (payload: AddColumn): AxiosPromise<Column> => {
+  return http.post('/columns', payload);
+};
 
-type ColumnsByUserId = {
-  userId: number;
+type AddColumn = {
+  title: string;
+  description: string | null;
 };

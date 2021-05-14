@@ -20,7 +20,7 @@ const Desk: React.FC<Props> = ({id}) => {
 export default Desk;
 
 type Props = {
-  id: string;
+  id: number;
 };
 
 const Container = styled.TouchableOpacity`

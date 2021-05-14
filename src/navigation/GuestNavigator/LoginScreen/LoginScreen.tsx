@@ -3,23 +3,34 @@ import {Form, Field} from 'react-final-form';
 import {Text, View} from 'react-native';
 import styled from 'styled-components/native';
 import {useNavigation} from '@react-navigation/core';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import AppRoutes from '../../route';
 import {setUser} from '../../../store/user/actions';
 import ButtonLong from '../../../components/ButtonLong';
 import InputField from '../../../components/InputField';
 import InputContainer from '../../../components/InputContainer';
+import {signIn} from '../../../store/user/actions';
+import {selectUser} from '../../../store/user/selectors';
 
 const LoginScreen: React.FC<Props> = () => {
+  const user = useSelector(selectUser);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const onSubmit = (values: ValuesType) => {
-    console.log('values', values);
-    if (values.Login === '1' && values.Password === '1') {
-      dispatch(setUser(true));
-    } else {
-      // navigation.navigate(AppRoutes.RegisterScreen);
+    // console.log('values', values);
+    // if (values.Login === user!.email && values.Password === user!.password) {
+    //   dispatch(setUser(true));
+    // }
+    const data = {
+      email: values.Email,
+      password: values.Password,
+    };
+    try {
+      // await
+      dispatch(signIn(data));
+    } catch (err) {
+      Alert.alert(err.message);
     }
   };
 
@@ -32,7 +43,7 @@ const LoginScreen: React.FC<Props> = () => {
           <FormWrapper>
             <InputContainer>
               <Field
-                name="Login"
+                name="Email"
                 component={InputField}
                 validate={value => (value ? undefined : 'Required')}
                 placeholder="Введите имя пользователя"
@@ -96,6 +107,6 @@ type Props = {
 };
 
 type ValuesType = {
-  Login: string;
+  Email: string;
   Password: string;
 };

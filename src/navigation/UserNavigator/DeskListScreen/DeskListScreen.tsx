@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {View, Image, Alert} from 'react-native';
 import styled from 'styled-components/native';
 import {Form, Field} from 'react-final-form';
-import InputField from '../../../components/InputField';
+import InputFieldCentered from '../../../components/InputFieldCentered';
 import Desk from './Desk';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {selectDesks} from '../../../store/desks/selectors';
@@ -20,11 +20,12 @@ const DeskListScreen: React.FC<Props> = () => {
     console.log('values', values);
 
     const data = {
-      title: 'NewTitle',
-      description: null,
+      title: values.title,
+      description: '',
     };
     try {
       await dispatch(newColumn(data));
+      await dispatch(getColumns(userId));
     } catch (err) {
       Alert.alert(err.message);
     }
@@ -39,26 +40,26 @@ const DeskListScreen: React.FC<Props> = () => {
   return (
     <Container>
       <DesklistHeader>
-        <CloseDeskListBtn onPress={() => dispatch(setUser(null))}>
-          <Image source={CROSS_ICON} />
-        </CloseDeskListBtn>
-        <DeskTitle>
-          <Form
-            onSubmit={onSubmit}
-            render={({handleSubmit}) => (
+        <Form
+          onSubmit={onSubmit}
+          render={({handleSubmit}) => (
+            <DeskTitle>
+              <CloseDeskListBtn onPress={() => dispatch(setUser(null))}>
+                <Image source={CROSS_ICON} />
+              </CloseDeskListBtn>
               <InputWrapper>
                 <Field
-                  name="PrayerName"
-                  component={InputField}
+                  name="DeskName"
+                  component={InputFieldCentered}
                   placeholder="Enter desk name..."
                   defaultValue="My Desk"
                 />
-                <AddNewDeskBtn onPress={() => handleSubmit()}>
-                  <Image source={require('../../../icons/Plus.png')} />
-                </AddNewDeskBtn>
               </InputWrapper>
-            )}></Form>
-        </DeskTitle>
+              <AddNewDeskBtn onPress={() => handleSubmit()}>
+                <Image source={require('../../../icons/Plus.png')} />
+              </AddNewDeskBtn>
+            </DeskTitle>
+          )}></Form>
       </DesklistHeader>
       <DesklistBody>
         {desksIds.map(id => {
@@ -99,16 +100,15 @@ const CloseDeskListBtn = styled.TouchableOpacity`
 `;
 const AddNewDeskBtn = CloseDeskListBtn;
 const DeskTitle = styled.View`
+  width: 100%;
+  flex-flow: row nowrap;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   /* text-align: center; */
-  font-size: 17px;
 `;
 const DesklistBody = styled.View`
   width: 100%;
   padding: 0 15px 0 15px;
   align-items: center;
 `;
-const InputWrapper = styled.View`
-  flex-flow: row nowrap;
-`;
+const InputWrapper = styled.View``;
