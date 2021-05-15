@@ -1,12 +1,12 @@
 import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
 import {ActionType} from '../types';
-import {PrayersApi, addPrayerApi} from '../tasks/api';
+import {PrayersApi, addPrayerApi} from './api';
 import {Prayer} from './slice';
 
-export const changeTitle = createAction<ActionType>('tasks/change');
+export const changeTitle = createAction<ActionType>('cards/change');
 
 export const getPrayers = createAsyncThunk<any>(
-  'prayers/getPrayers',
+  'cards/getCards',
   async params => {
     const {data} = await PrayersApi();
     if (data.message) {
@@ -18,7 +18,7 @@ export const getPrayers = createAsyncThunk<any>(
 );
 
 export const addPrayer = createAsyncThunk<Prayer, Params>(
-  'prayers/addPrayer',
+  'cards/addCard',
   async params => {
     const {data} = await addPrayerApi(params);
     if (data.message) {

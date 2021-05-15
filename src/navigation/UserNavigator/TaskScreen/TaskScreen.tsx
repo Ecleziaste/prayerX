@@ -2,7 +2,7 @@ import React from 'react';
 import {Image} from 'react-native';
 import {useRoute, useNavigation} from '@react-navigation/core';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
-import {selectTaskById} from '../../../store/tasks/selectors';
+import {selectTaskById} from '../../../store/cards/selectors';
 import styled from 'styled-components/native';
 import {Form, Field} from 'react-final-form';
 import InputField from '../../../components/InputField';

@@ -4,7 +4,7 @@ import {getColumns, addColumn} from './actions';
 const initialState = [] as Array<Column>;
 
 const columnsSlice = createSlice({
-  name: 'desks',
+  name: 'columns',
   initialState,
   reducers: {},
   extraReducers: {

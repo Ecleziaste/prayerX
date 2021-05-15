@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {RootState} from '../../../../store';
-import {selectTaskById} from '../../../../store/tasks/selectors';
+import {selectTaskById} from '../../../../store/cards/selectors';
 import {Text, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import AppRoutes from '../../../route';

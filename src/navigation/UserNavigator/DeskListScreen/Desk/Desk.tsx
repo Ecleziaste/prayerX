@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../../store';
-import {selectDeskById} from '../../../../store/desks/selectors';
+import {selectDeskById} from '../../../../store/columns/selectors';
 import {useNavigation} from '@react-navigation/core';
 import AppRoutes from '../../../route';
 

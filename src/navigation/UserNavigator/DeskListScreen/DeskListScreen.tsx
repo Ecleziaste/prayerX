@@ -5,14 +5,14 @@ import {Form, Field} from 'react-final-form';
 import InputFieldCentered from '../../../components/InputFieldCentered';
 import Desk from './Desk';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
-import {selectDesks} from '../../../store/desks/selectors';
+import {selectColumns} from '../../../store/columns/selectors';
 import {useNavigation} from '@react-navigation/core';
 import {setUser} from '../../../store/user/actions';
 import CROSS_ICON from '../../../icons/Cross.png';
-import {getColumns, addColumn} from '../../../store/desks/actions';
+import {getColumns, addColumn} from '../../../store/columns/actions';
 
 const DeskListScreen: React.FC<Props> = () => {
-  const desksIds = useSelector(selectDesks, shallowEqual);
+  const columnsIds = useSelector(selectColumns, shallowEqual);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -42,6 +42,7 @@ const DeskListScreen: React.FC<Props> = () => {
               <InputWrapper>
                 <Field
                   name="title"
+                  value=""
                   component={InputFieldCentered}
                   placeholder="Enter desk name..."
                   defaultValue="My Desk"
@@ -55,7 +56,7 @@ const DeskListScreen: React.FC<Props> = () => {
         />
       </DesklistHeader>
       <DesklistBody>
-        {desksIds.map(id => {
+        {columnsIds.map(id => {
           return <Desk id={id} key={id} />;
         })}
       </DesklistBody>

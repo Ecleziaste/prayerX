@@ -1,9 +1,9 @@
 import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
 import {ActionType} from '../types';
-import {ColumnsApi, addColumnApi} from '../desks/api';
+import {ColumnsApi, addColumnApi} from './api';
 import {Column} from './slice';
 
-export const changeTitle = createAction<ActionType>('desks/change');
+export const changeTitle = createAction<ActionType>('columns/change');
 
 export const getColumns = createAsyncThunk<any, number>(
   'columns/getColumns',

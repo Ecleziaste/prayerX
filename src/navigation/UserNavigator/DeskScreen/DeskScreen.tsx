@@ -3,13 +3,14 @@ import {RootState} from '../../../store';
 import {Alert} from 'react-native';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {
-  selectTasksIds,
-  selectSubscribedTasksIds,
-  selectAnsweredTasksIds,
-  selectUnansweredTasksIds,
-} from '../../../store/tasks/selectors';
-import {selectDeskById} from '../../../store/desks/selectors';
-import {selectTasksIdsByDeskId} from '../../../store/tasks/selectors';
+  selectCardsIds,
+  selectSubscribedCardsIds,
+  selectAnsweredCardsIds,
+  selectUnansweredCardsIds,
+  selectCardsIdsByColumnId,
+  selectCardById,
+} from '../../../store/cards/selectors';
+import {selectColumnById} from '../../../store/columns/selectors';
 import {Image} from 'react-native';
 import {useRoute, useNavigation} from '@react-navigation/core';
 import styled from 'styled-components/native';
@@ -17,7 +18,7 @@ import InputAdd from './InputAdd';
 import Task from './Task';
 import ButtonLong from '../../../components/ButtonLong';
 import {DeskScreenProps} from '../UserNavigator';
-import {getPrayers, addPrayer} from '../../../store/tasks/actions';
+import {getPrayers, addPrayer} from '../../../store/cards/actions';
 
 const DeskScreen: React.FC<Props> = ({
   route: {
@@ -27,14 +28,14 @@ const DeskScreen: React.FC<Props> = ({
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const {title} = useSelector((state: RootState) => selectDeskById(state, id))!;
-  const tasksIds = useSelector((state: RootState) =>
-    selectTasksIdsByDeskId(state, id),
+  const {title} = useSelector((state: RootState) => selectCardById(state, id))!;
+  const cardsIds = useSelector((state: RootState) =>
+    selectCardsIdsByColumnId(state, id),
   )!;
-  // const tasks = useSelector(selectTasksIds);
-  const tasksSubscribed = useSelector(selectSubscribedTasksIds);
-  const tasksAnswered = useSelector(selectAnsweredTasksIds);
-  const tasksUnanswered = useSelector(selectUnansweredTasksIds);
+  // const cards = useSelector(selectTasksIds);
+  const cardsSubscribed = useSelector(selectSubscribedCardsIds);
+  const cardsAnswered = useSelector(selectAnsweredCardsIds);
+  const cardsUnanswered = useSelector(selectUnansweredCardsIds);
 
   const [tab, setTab] = useState(true);
   const [myPrayers, setMyPrayres] = useState(true);
@@ -111,12 +112,12 @@ const DeskScreen: React.FC<Props> = ({
       {tab ? (
         <DeskScreenBody
           keyExtractor={item => item + '1'}
-          data={tasksIds}
+          data={cardsIds}
           renderItem={({item}: any) => <Task id={item} />}></DeskScreenBody>
       ) : (
         <DeskScreenBody
           keyExtractor={item => item + '2'}
-          data={tasksSubscribed}
+          data={cardsSubscribed}
           renderItem={({item}: any) => <Task id={item} />}></DeskScreenBody>
       )}
       <ButtonLong
@@ -125,7 +126,7 @@ const DeskScreen: React.FC<Props> = ({
       {btnPushed && (
         <AnsweredPrayers
           keyExtractor={item => item + '3'}
-          data={tasksAnswered}
+          data={cardsAnswered}
           renderItem={({item}: any) => <Task id={item} />}>
           {/* <Task id={'1'} /> */}
         </AnsweredPrayers>
