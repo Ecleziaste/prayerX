@@ -66,10 +66,12 @@ const DeskScreen: React.FC<Props> = ({
     }
   };
 
-  const onSubmit = ({title}: {title: string}) => {
+  const onSubmit = async ({title}: {title: string}) => {
     try {
       // await
-      dispatch(addCard({title, description: '', checked: false, columnId: id}));
+      await dispatch(
+        addCard({title, description: '', checked: false, columnId: id}),
+      );
     } catch (err) {
       Alert.alert(err.message);
     }

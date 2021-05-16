@@ -9,7 +9,7 @@ import {selectColumns} from '../../../store/columns/selectors';
 import {useNavigation} from '@react-navigation/core';
 import {setUser} from '../../../store/user/actions';
 import CROSS_ICON from '../../../icons/Cross.png';
-import {getColumns, addColumn} from '../../../store/columns/actions';
+import {getColumns, addColumn} from '../../../store/columns/actions';                                                                                                               
 import {getCards} from '../../../store/cards/actions';
 
 const DeskListScreen: React.FC<Props> = () => {
