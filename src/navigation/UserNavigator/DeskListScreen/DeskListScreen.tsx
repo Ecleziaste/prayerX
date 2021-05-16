@@ -10,6 +10,7 @@ import {useNavigation} from '@react-navigation/core';
 import {setUser} from '../../../store/user/actions';
 import CROSS_ICON from '../../../icons/Cross.png';
 import {getColumns, addColumn} from '../../../store/columns/actions';
+import {getCards} from '../../../store/cards/actions';
 
 const DeskListScreen: React.FC<Props> = () => {
   const columnsIds = useSelector(selectColumns, shallowEqual);
@@ -24,9 +25,10 @@ const DeskListScreen: React.FC<Props> = () => {
     }
   };
 
-  const userId = 206;
+  // const userId = 206;
   useEffect(() => {
-    dispatch(getColumns(userId));
+    dispatch(getColumns());
+    dispatch(getCards());
   }, []);
 
   return (

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {RootState} from '../../../../store';
-import {selectTaskById} from '../../../../store/cards/selectors';
-import {Text, TouchableOpacity} from 'react-native';
+import {selectCardById} from '../../../../store/cards/selectors';
+import {Text} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import AppRoutes from '../../../route';
 import styled from 'styled-components/native';
@@ -12,14 +12,15 @@ const Task: React.FC<Props> = ({id}) => {
   const navigation = useNavigation();
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [titleStyle, setTitleStyle] = useState('none');
-  const {title} = useSelector((state: RootState) => selectTaskById(state, id))!;
-  const {users} = useSelector((state: RootState) => selectTaskById(state, id))!;
+  const {title} = useSelector((state: RootState) => selectCardById(state, id))!;
+  const {users} = useSelector((state: RootState) => selectCardById(state, id))!;
   const {prayers} = useSelector((state: RootState) =>
-    selectTaskById(state, id),
+    selectCardById(state, id),
   )!;
 
   return (
-    <TaskContainer>
+    <TaskContainer
+      onPress={() => navigation.navigate(AppRoutes.TaskScreen, {title})}>
       <StateBox>
         <StateIcon source={require('../../../../icons/State/Red.png')} />
       </StateBox>
@@ -28,15 +29,14 @@ const Task: React.FC<Props> = ({id}) => {
         disabled={false}
         value={toggleCheckBox}
         onValueChange={newValue => setToggleCheckBox(newValue)}></CheckBox>
-      <TouchableText
-        onPress={() => navigation.navigate(AppRoutes.TaskScreen, {title})}>
+      <InnerText>
         <TaskTitle
           numberOfLines={1}
           ellipsizeMode="tail"
           active={toggleCheckBox}>
           {title}
         </TaskTitle>
-      </TouchableText>
+      </InnerText>
       <UserIcon source={require('../../../../icons/User/user.png')}></UserIcon>
       <UserCount>
         <Text>{users}</Text>
@@ -53,10 +53,10 @@ const Task: React.FC<Props> = ({id}) => {
 export default Task;
 
 type Props = {
-  id: string;
+  id: number;
 };
 
-const TaskContainer = styled.View`
+const TaskContainer = styled.TouchableOpacity`
   width: 345px;
   margin: 0 15px 0 15px;
   flex-flow: row nowrap;
@@ -66,7 +66,7 @@ const TaskContainer = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: #e5e5e5;
 `;
-const TouchableText = styled.TouchableOpacity`
+const InnerText = styled.View`
   flex: 1;
 `;
 const TaskTitle = styled.Text`

@@ -21,9 +21,9 @@ export const selectCardById = createSelector(
 
 export const selectCardsIdsByColumnId = createSelector(
   (state: RootState) => state.cards,
-  (_: RootState, deskId: number) => deskId,
-  (cards, deskId) =>
-    cards.filter(card => card.deskId === deskId).map(card => card.id),
+  (_: RootState, columnId: number) => columnId,
+  (cards, columnId) =>
+    cards.filter(card => card.columnId === columnId).map(card => card.id),
 );
 
 // export const selectTasksSubscribed = createSelector(

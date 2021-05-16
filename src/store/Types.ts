@@ -11,7 +11,7 @@ export type ActionType = {
 export type TaskType = {
   id: string;
   // state: string;
-  deskId: string;
+  columnId: string;
   title: string;
   users: number;
   prayers: number;

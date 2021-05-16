@@ -18,8 +18,6 @@ export const authMiddleware = () => (next: Dispatch) => (
     action.payload?.user?.token &&
       http.setAuthorizationHeader(action.payload.user.token);
   }
-  //   if (action.type === actions.auth.signOut.fulfilled.type) {
-  //     http.unsetAuthorizationHeader();
-  //   }
+
   return next(action);
 };

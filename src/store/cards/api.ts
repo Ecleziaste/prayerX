@@ -13,4 +13,6 @@ export const addPrayerApi = (payload: AddPrayerType): AxiosPromise<Prayer> => {
 type AddPrayerType = {
   title: string;
   description: string;
+  checked: boolean;
+  columnId: number;
 };

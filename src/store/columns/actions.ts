@@ -5,7 +5,7 @@ import {Column} from './slice';
 
 export const changeTitle = createAction<ActionType>('columns/change');
 
-export const getColumns = createAsyncThunk<any, number>(
+export const getColumns = createAsyncThunk<Column>(
   'columns/getColumns',
   async params => {
     const {data} = await ColumnsApi();

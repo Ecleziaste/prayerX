@@ -1,12 +1,12 @@
 import {combineReducers} from 'redux';
 import {reducer as userReducer} from './user/slice';
-import {reducer as desksReducer} from './columns/slice';
-import {reducer as tasksReducer} from './cards/slice';
+import {reducer as columnsReducer} from './columns/slice';
+import {reducer as cardsReducer} from './cards/slice';
 
 const rootReducer = combineReducers({
   user: userReducer,
-  columns: desksReducer,
-  cards: tasksReducer,
+  columns: columnsReducer,
+  cards: cardsReducer,
 });
 
 export {rootReducer};

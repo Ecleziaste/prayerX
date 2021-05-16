@@ -8,7 +8,6 @@ import {
   selectAnsweredCardsIds,
   selectUnansweredCardsIds,
   selectCardsIdsByColumnId,
-  selectCardById,
 } from '../../../store/cards/selectors';
 import {selectColumnById} from '../../../store/columns/selectors';
 import {Image} from 'react-native';
@@ -18,7 +17,7 @@ import InputAdd from './InputAdd';
 import Task from './Task';
 import ButtonLong from '../../../components/ButtonLong';
 import {DeskScreenProps} from '../UserNavigator';
-import {getPrayers, addPrayer} from '../../../store/cards/actions';
+import {getCards, addCard} from '../../../store/cards/actions';
 
 const DeskScreen: React.FC<Props> = ({
   route: {
@@ -28,7 +27,9 @@ const DeskScreen: React.FC<Props> = ({
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const {title} = useSelector((state: RootState) => selectCardById(state, id))!;
+  const {title} = useSelector((state: RootState) =>
+    selectColumnById(state, id),
+  )!;
   const cardsIds = useSelector((state: RootState) =>
     selectCardsIdsByColumnId(state, id),
   )!;
@@ -68,15 +69,15 @@ const DeskScreen: React.FC<Props> = ({
   const onSubmit = ({title}: {title: string}) => {
     try {
       // await
-      dispatch(addPrayer({title, description: '', checked: false, deskId: id}));
+      dispatch(addCard({title, description: '', checked: false, columnId: id}));
     } catch (err) {
       Alert.alert(err.message);
     }
   };
 
-  useEffect(() => {
-    dispatch(getPrayers());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getCards());
+  // }, []);
 
   return (
     <Container>
@@ -106,7 +107,7 @@ const DeskScreen: React.FC<Props> = ({
         </TabsContainer>
       </DeskScreenHeader>
       <InputAdd onSubmit={onSubmit}></InputAdd>
-      {/* {desksIds.map(id => {
+      {/* {cardsIds.map(id => {
         return <Desk id={id} key={id} />;
       })} */}
       {tab ? (

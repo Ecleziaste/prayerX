@@ -5,19 +5,20 @@ import {Prayer} from './slice';
 
 export const changeTitle = createAction<ActionType>('cards/change');
 
-export const getPrayers = createAsyncThunk<any>(
+export const getCards = createAsyncThunk<Prayer>(
   'cards/getCards',
   async params => {
     const {data} = await PrayersApi();
     if (data.message) {
       throw new Error('Error');
     }
+    console.log(data);
 
     return data;
   },
 );
 
-export const addPrayer = createAsyncThunk<Prayer, Params>(
+export const addCard = createAsyncThunk<Prayer, Params>(
   'cards/addCard',
   async params => {
     const {data} = await addPrayerApi(params);
@@ -33,5 +34,5 @@ type Params = {
   title: string;
   description: string;
   checked: boolean;
-  deskId: number;
+  columnId: number;
 };

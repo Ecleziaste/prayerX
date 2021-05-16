@@ -2,13 +2,15 @@ import React from 'react';
 import styled from 'styled-components/native';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../../store';
-import {selectDeskById} from '../../../../store/columns/selectors';
+import {selectColumnById} from '../../../../store/columns/selectors';
 import {useNavigation} from '@react-navigation/core';
 import AppRoutes from '../../../route';
 
 const Desk: React.FC<Props> = ({id}) => {
   const navigation = useNavigation();
-  const {title} = useSelector((state: RootState) => selectDeskById(state, id))!;
+  const {title} = useSelector((state: RootState) =>
+    selectColumnById(state, id),
+  )!;
 
   return (
     <Container onPress={() => navigation.navigate(AppRoutes.DeskScreen, {id})}>
