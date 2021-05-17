@@ -1,2 +1,1 @@
-export {tasksReducer} from './slice';
-export * as actions from './actions';
+export {reducer as cardsReducer, actions} from './slice';

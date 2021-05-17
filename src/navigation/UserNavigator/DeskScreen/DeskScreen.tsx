@@ -68,7 +68,6 @@ const DeskScreen: React.FC<Props> = ({
 
   const onSubmit = async ({title}: {title: string}) => {
     try {
-      // await
       await dispatch(
         addCard({title, description: '', checked: false, columnId: id}),
       );
@@ -85,11 +84,10 @@ const DeskScreen: React.FC<Props> = ({
     <Container>
       <DeskScreenHeader>
         <BackBtn onPress={() => navigation.goBack()}>
-          <Image
-            source={require('../../../icons/CircledArrowLeft.png')}></Image>
+          <Image source={require('../../../icons/CircledArrowLeft.png')} />
         </BackBtn>
         <SettingsIcon>
-          <Image source={require('../../../icons/Settings.png')}></Image>
+          <Image source={require('../../../icons/Settings.png')} />
         </SettingsIcon>
         <TitleWrapper>
           <Title>{title}</Title>
@@ -108,7 +106,7 @@ const DeskScreen: React.FC<Props> = ({
           </Subscribed>
         </TabsContainer>
       </DeskScreenHeader>
-      <InputAdd onSubmit={onSubmit}></InputAdd>
+      <InputAdd onSubmit={onSubmit} />
       {/* {cardsIds.map(id => {
         return <Desk id={id} key={id} />;
       })} */}
@@ -116,16 +114,16 @@ const DeskScreen: React.FC<Props> = ({
         <DeskScreenBody
           keyExtractor={item => item + '1'}
           data={cardsIds}
-          renderItem={({item}: any) => <Task id={item} />}></DeskScreenBody>
+          renderItem={({item}: any) => <Task id={item} />}
+        />
       ) : (
         <DeskScreenBody
           keyExtractor={item => item + '2'}
           data={cardsSubscribed}
-          renderItem={({item}: any) => <Task id={item} />}></DeskScreenBody>
+          renderItem={({item}: any) => <Task id={item} />}
+        />
       )}
-      <ButtonLong
-        text={btnText}
-        handlerFunc={() => handleBtnPush()}></ButtonLong>
+      <ButtonLong text={btnText} handlerFunc={() => handleBtnPush()} />
       {btnPushed && (
         <AnsweredPrayers
           keyExtractor={item => item + '3'}

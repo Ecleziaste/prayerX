@@ -6,11 +6,11 @@ export const PrayersApi = (): AxiosPromise<Prayer> => {
   return http.get('/prayers');
 };
 
-export const addPrayerApi = (payload: AddPrayerType): AxiosPromise<Prayer> => {
+export const addPrayerApi = (payload: AddPrayer): AxiosPromise<Prayer> => {
   return http.post('/prayers', payload);
 };
 
-type AddPrayerType = {
+type AddPrayer = {
   title: string;
   description: string;
   checked: boolean;

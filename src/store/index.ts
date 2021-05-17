@@ -9,7 +9,7 @@ export type RootState = ReturnType<typeof rootReducer>;
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['user'],
+  whitelist: ['user', 'cards'],
 };
 const pReducer = persistReducer(persistConfig, rootReducer);
 const store = configureStore({

@@ -5,13 +5,13 @@ import {Text} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import AppRoutes from '../../../route';
 import styled from 'styled-components/native';
-import {useSelector, useDispatch, shallowEqual} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import CheckBox from '@react-native-community/checkbox';
 
 const Task: React.FC<Props> = ({id}) => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
-  const [titleStyle, setTitleStyle] = useState('none');
   const {title} = useSelector((state: RootState) => selectCardById(state, id))!;
   const {users} = useSelector((state: RootState) => selectCardById(state, id))!;
   const {prayers} = useSelector((state: RootState) =>
@@ -28,21 +28,23 @@ const Task: React.FC<Props> = ({id}) => {
         // tintColors={{true: #ffffff, false: #ffffff}}
         disabled={false}
         value={toggleCheckBox}
-        onValueChange={newValue => setToggleCheckBox(newValue)}></CheckBox>
+        onValueChange={newValue => setToggleCheckBox(newValue)}
+      />
       <InnerText>
         <TaskTitle
           numberOfLines={1}
           ellipsizeMode="tail"
-          active={toggleCheckBox}>
+          isActive={toggleCheckBox}>
           {title}
         </TaskTitle>
       </InnerText>
-      <UserIcon source={require('../../../../icons/User/user.png')}></UserIcon>
+      <UserIcon source={require('../../../../icons/User/user.png')} />
       <UserCount>
         <Text>{users}</Text>
       </UserCount>
       <PrayerIcon
-        source={require('../../../../icons/HandsBlue/prayer_line.png')}></PrayerIcon>
+        source={require('../../../../icons/HandsBlue/prayer_line.png')}
+      />
       <PrayerCount>
         <Text>{prayers}</Text>
       </PrayerCount>
@@ -72,7 +74,7 @@ const InnerText = styled.View`
 const TaskTitle = styled.Text`
   font-size: 17px;
   line-height: 20px;
-  text-decoration-line: ${props => (props.active ? 'line-through' : 'none')};
+  text-decoration-line: ${props => (props.isActive ? 'line-through' : 'none')};
 `;
 const StateBox = styled.View`
   width: 24px;

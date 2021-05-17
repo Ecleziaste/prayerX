@@ -1,1 +1,1 @@
-export {reducer, actions} from './slice';
+export {reducer as columnsReducer, actions} from './slice';

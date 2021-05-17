@@ -12,8 +12,6 @@ const cardsSlice = createSlice({
       state,
       action: PayloadAction<Array<Prayer>>,
     ) => {
-      console.log(action.payload);
-
       return action.payload;
     },
     [addCard.fulfilled.type]: (state, action: PayloadAction<Prayer>) => {
@@ -26,14 +24,16 @@ const {reducer, actions} = cardsSlice;
 export {reducer, actions};
 
 export type Prayer = {
+  id: number;
   title: string;
   description: string;
   checked: boolean;
-  message: string;
-  id: number;
   columnId: number;
-  answered: boolean;
+  commentsIds: Array<number>;
 
+  message: string;
+
+  answered: boolean;
   users: number;
   prayers: number;
   subscribed: boolean;

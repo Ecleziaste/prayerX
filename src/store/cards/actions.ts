@@ -26,6 +26,7 @@ export const addCard = createAsyncThunk<Prayer, Params>(
       throw new Error('Error');
     }
 
+    console.log(data);
     return data;
   },
 );

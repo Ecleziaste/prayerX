@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
-import {reducer as userReducer} from './user/slice';
-import {reducer as columnsReducer} from './columns/slice';
-import {reducer as cardsReducer} from './cards/slice';
+import {userReducer} from './user';
+import {columnsReducer} from './columns';
+import {cardsReducer} from './cards';
 
 const rootReducer = combineReducers({
   user: userReducer,

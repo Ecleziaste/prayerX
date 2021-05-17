@@ -1,2 +1,1 @@
-export {reducer, actions} from './slice';
-
+export {reducer as userReducer, actions} from './slice';
