@@ -37,7 +37,7 @@ const UserNavigator = () => {
 type UserNavigatorParams = {
   [AppRoutes.DeskListScreen]: undefined;
   [AppRoutes.DeskScreen]: {id: number};
-  [AppRoutes.TaskScreen]: undefined;
+  [AppRoutes.TaskScreen]: {id: number};
 };
 
 export interface DeskListScreenProps {

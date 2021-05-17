@@ -1,7 +1,17 @@
 import React from 'react';
+import {RootState} from '../../../../store';
 import styled from 'styled-components/native';
+import {useSelector, useDispatch} from 'react-redux';
+import {
+  selectCommentById,
+  selectCommentsIdsByPrayerId,
+} from '../../../../store/comments/selectors';
 
-const Comment: React.FC<Props> = () => {
+const Comment: React.FC<Props> = ({id}) => {
+  const {body} = useSelector((state: RootState) =>
+    selectCommentById(state, id),
+  )!;
+
   return (
     <Container>
       <UserPic>{/* <Image></Image> */}</UserPic>
@@ -10,7 +20,7 @@ const Comment: React.FC<Props> = () => {
           <UserName>Johny</UserName>
           <UserActivity>4 days ago</UserActivity>
         </TopRow>
-        <UserComment>Hey yo!</UserComment>
+        <UserComment>{body}</UserComment>
       </Info>
     </Container>
   );
@@ -62,4 +72,4 @@ const UserComment = styled.Text`
 
 export default Comment;
 
-type Props = {};
+type Props = {id: number};

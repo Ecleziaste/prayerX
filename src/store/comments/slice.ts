@@ -3,7 +3,7 @@ import {getComments, addComment} from './actions';
 
 const initialState = [] as Array<Comment>;
 
-const cardsSlice = createSlice({
+const commentsSlice = createSlice({
   name: 'comments',
   initialState,
   reducers: {},
@@ -19,7 +19,7 @@ const cardsSlice = createSlice({
     },
   },
 });
-const {reducer, actions} = cardsSlice;
+const {reducer, actions} = commentsSlice;
 
 export {reducer, actions};
 

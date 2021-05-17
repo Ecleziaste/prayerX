@@ -12,7 +12,6 @@ export const getCards = createAsyncThunk<Prayer>(
     if (data.message) {
       throw new Error('Error');
     }
-    console.log(data);
 
     return data;
   },
@@ -35,5 +34,7 @@ type Params = {
   title: string;
   description: string;
   checked: boolean;
+
   columnId: number;
+  commentsIds: Array<number>;
 };

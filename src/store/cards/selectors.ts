@@ -7,11 +7,11 @@ export const selectCardsIds = (state: RootState) =>
 export const selectSubscribedCardsIds = (state: RootState) =>
   state.cards.filter(card => card.subscribed === true).map(card => card.id);
 
-export const selectAnsweredCardsIds = (state: RootState) =>
-  state.cards.filter(card => card.answered === true).map(card => card.id);
+export const selectCheckedCardsIds = (state: RootState) =>
+  state.cards.filter(card => card.checked === true).map(card => card.id);
 
-export const selectUnansweredCardsIds = (state: RootState) =>
-  state.cards.filter(card => card.answered === false).map(card => card.id);
+export const selectUncheckedCardsIds = (state: RootState) =>
+  state.cards.filter(card => card.checked === false).map(card => card.id);
 
 export const selectCardById = createSelector(
   (state: RootState) => state.cards,
@@ -25,9 +25,3 @@ export const selectCardsIdsByColumnId = createSelector(
   (cards, columnId) =>
     cards.filter(card => card.columnId === columnId).map(card => card.id),
 );
-
-// export const selectTasksSubscribed = createSelector(
-//   (state: RootState) => state.tasks,
-//   (_: RootState, subscribed: boolean) => subscribed,
-//   (tasks, subscribed) => tasks.find(task => task.subscribed === true),
-// );

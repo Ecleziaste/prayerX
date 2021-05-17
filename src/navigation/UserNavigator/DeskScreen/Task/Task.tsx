@@ -20,7 +20,7 @@ const Task: React.FC<Props> = ({id}) => {
 
   return (
     <TaskContainer
-      onPress={() => navigation.navigate(AppRoutes.TaskScreen, {title})}>
+      onPress={() => navigation.navigate(AppRoutes.TaskScreen, {id})}>
       <StateBox>
         <StateIcon source={require('../../../../icons/State/Red.png')} />
       </StateBox>

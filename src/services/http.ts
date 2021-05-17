@@ -4,8 +4,6 @@ import Axios, {AxiosError, AxiosInstance} from 'axios';
 export class Http {
   constructor(private readonly _axios: AxiosInstance) {}
   setAuthorizationHeader(token: string): void {
-    console.log('token', token);
-
     this._axios.defaults.headers.Authorization = `Bearer ${token}`;
   }
   unsetAuthorizationHeader(): void {

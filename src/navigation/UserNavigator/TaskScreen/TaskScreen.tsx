@@ -1,32 +1,55 @@
 import React from 'react';
 import {Image} from 'react-native';
+import {RootState} from '../../../store';
+import {Alert, View} from 'react-native';
 import {useRoute, useNavigation} from '@react-navigation/core';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
-import {selectTaskById} from '../../../store/cards/selectors';
+import {
+  selectCardById,
+  selectCardsIdsByColumnId,
+} from '../../../store/cards/selectors';
 import styled from 'styled-components/native';
 import {Form, Field} from 'react-final-form';
 import InputField from '../../../components/InputField';
 import Member from './Member';
 import Comment from './Comment';
+import {TaskScreenProps} from '../UserNavigator';
+import {getComments, addComment} from '../../../store/comments/actions';
+import {
+  selectCommentById,
+  selectCommentsIdsByPrayerId,
+} from '../../../store/comments/selectors';
 
-const TaskScreen: React.FC<Props> = () => {
+const TaskScreen: React.FC<Props> = ({
+  route: {
+    params: {id},
+  },
+}) => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
-  const route = useRoute();
-  const {title} = route.params;
+  const {title} = useSelector((state: RootState) => selectCardById(state, id))!;
+  const commentsIds = useSelector((state: RootState) =>
+    selectCommentsIdsByPrayerId(state, id),
+  )!;
 
-  const onSubmit = (values: any) => {
-    console.log('values', values);
+  const onSubmit = async ({body}: {body: string}) => {
+    try {
+      await dispatch(addComment({body, prayerId: id}));
+    } catch (err) {
+      Alert.alert(err.message);
+    }
   };
 
   return (
     <Container>
       <Header>
         <BackBtn onPress={() => navigation.goBack()}>
-          <Image source={require('../../../icons/Back/back.png')}></Image>
+          <Image source={require('../../../icons/Back/back.png')} />
         </BackBtn>
         <PrayBtn>
           <Image
-            source={require('../../../icons/HandsWhite/prayer_line.png')}></Image>
+            source={require('../../../icons/HandsWhite/prayer_line.png')}
+          />
         </PrayBtn>
         <TitleWrapper>
           <Title>{title}</Title>
@@ -35,7 +58,7 @@ const TaskScreen: React.FC<Props> = () => {
       <Statistics>
         <StatHeader>
           <StatePic>
-            <Image source={require('../../../icons/State/Red.png')}></Image>
+            <Image source={require('../../../icons/State/Red.png')} />
           </StatePic>
           <StatHeaderText>Last prayed ...</StatHeaderText>
         </StatHeader>
@@ -82,33 +105,37 @@ const TaskScreen: React.FC<Props> = () => {
           <Member />
           <Member />
           <Addmember>
-            <Image source={require('../../../icons/AddWhite.png')}></Image>
+            <Image source={require('../../../icons/AddWhite.png')} />
           </Addmember>
         </MembersContent>
       </Members>
       <Comments>
         <CommentsTitle>comments</CommentsTitle>
-        <CommentsList>
-          <Comment />
-          <Comment />
-        </CommentsList>
+        <CommentsList
+          keyExtractor={item => item + '1'}
+          data={commentsIds}
+          renderItem={({item}: any) => <Comment id={item} />}
+        />
+        {/* <View>
+          <Comment id={id} />
+        </View> */}
       </Comments>
       <FormWrapper>
         <Form
           onSubmit={onSubmit}
           render={({handleSubmit}) => (
             <AddComment>
-              <AddCommentImage onPress={() => handleSubmit()}>
-                <Image
-                  source={require('../../../icons/CommentAdd.png')}></Image>
+              <AddCommentImage onPress={handleSubmit}>
+                <Image source={require('../../../icons/CommentAdd.png')} />
               </AddCommentImage>
               <Field
-                name="CommentText"
+                name="body"
                 component={InputField}
                 placeholder="Add a comment..."
               />
             </AddComment>
-          )}></Form>
+          )}
+        />
       </FormWrapper>
     </Container>
   );
@@ -116,7 +143,7 @@ const TaskScreen: React.FC<Props> = () => {
 
 export default TaskScreen;
 
-type Props = {};
+interface Props extends TaskScreenProps {}
 
 const Container = styled.SafeAreaView`
   margin: 0;
@@ -124,7 +151,6 @@ const Container = styled.SafeAreaView`
   background: #ffffff;
   flex: 1;
   align-self: stretch;
-  /* align-items: center; */
 `;
 const Header = styled.View`
   width: 100%;
@@ -255,7 +281,7 @@ const Comments = styled.View`
 const CommentsTitle = styled(MembersTitle)`
   padding: 10px 15px 0 15px;
 `;
-const CommentsList = styled.View`
+const CommentsList = styled.FlatList`
   margin-top: 15px;
   border-top-width: 1px;
   border-top-color: #e5e5e5;

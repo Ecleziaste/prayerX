@@ -5,8 +5,8 @@ import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {
   selectCardsIds,
   selectSubscribedCardsIds,
-  selectAnsweredCardsIds,
-  selectUnansweredCardsIds,
+  selectCheckedCardsIds,
+  selectUncheckedCardsIds,
   selectCardsIdsByColumnId,
 } from '../../../store/cards/selectors';
 import {selectColumnById} from '../../../store/columns/selectors';
@@ -30,13 +30,14 @@ const DeskScreen: React.FC<Props> = ({
   const {title} = useSelector((state: RootState) =>
     selectColumnById(state, id),
   )!;
+
   const cardsIds = useSelector((state: RootState) =>
     selectCardsIdsByColumnId(state, id),
   )!;
-  // const cards = useSelector(selectTasksIds);
+  const cards = useSelector(selectCardsIds);
   const cardsSubscribed = useSelector(selectSubscribedCardsIds);
-  const cardsAnswered = useSelector(selectAnsweredCardsIds);
-  const cardsUnanswered = useSelector(selectUnansweredCardsIds);
+  const cardsAnswered = useSelector(selectCheckedCardsIds);
+  const cardsUnanswered = useSelector(selectUncheckedCardsIds);
 
   const [tab, setTab] = useState(true);
   const [myPrayers, setMyPrayres] = useState(true);
@@ -69,7 +70,13 @@ const DeskScreen: React.FC<Props> = ({
   const onSubmit = async ({title}: {title: string}) => {
     try {
       await dispatch(
-        addCard({title, description: '', checked: false, columnId: id}),
+        addCard({
+          title,
+          description: '',
+          checked: false,
+          columnId: id,
+          commentsIds: [],
+        }),
       );
     } catch (err) {
       Alert.alert(err.message);
@@ -112,25 +119,24 @@ const DeskScreen: React.FC<Props> = ({
       })} */}
       {tab ? (
         <DeskScreenBody
-          keyExtractor={item => item + '1'}
           data={cardsIds}
           renderItem={({item}: any) => <Task id={item} />}
+          keyExtractor={item => item + '1'}
         />
       ) : (
         <DeskScreenBody
-          keyExtractor={item => item + '2'}
-          data={cardsSubscribed}
+          data={cards}
           renderItem={({item}: any) => <Task id={item} />}
+          keyExtractor={item => item + '2'}
         />
       )}
       <ButtonLong text={btnText} handlerFunc={() => handleBtnPush()} />
       {btnPushed && (
         <AnsweredPrayers
-          keyExtractor={item => item + '3'}
           data={cardsAnswered}
-          renderItem={({item}: any) => <Task id={item} />}>
-          {/* <Task id={'1'} /> */}
-        </AnsweredPrayers>
+          renderItem={({item}: any) => <Task id={item} />}
+          keyExtractor={item => item + '3'}
+        />
       )}
     </Container>
   );

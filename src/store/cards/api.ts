@@ -6,13 +6,14 @@ export const PrayersApi = (): AxiosPromise<Prayer> => {
   return http.get('/prayers');
 };
 
-export const addPrayerApi = (payload: AddPrayer): AxiosPromise<Prayer> => {
+export const addPrayerApi = (payload: AddPrayerType): AxiosPromise<Prayer> => {
   return http.post('/prayers', payload);
 };
 
-type AddPrayer = {
+type AddPrayerType = {
   title: string;
   description: string;
   checked: boolean;
   columnId: number;
+  commentsIds: Array<number | null>;
 };
