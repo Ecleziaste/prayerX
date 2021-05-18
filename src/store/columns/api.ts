@@ -2,15 +2,17 @@ import {AxiosPromise} from 'axios';
 import {http} from '../../services/http';
 import {Column} from './slice';
 
-export const ColumnsApi = (): AxiosPromise<Column> => {
+export const getColumnsApi = (): AxiosPromise<Column> => {
   return http.get('/columns');
 };
 
-export const addColumnApi = (payload: AddColumnType): AxiosPromise<Column> => {
+export const createColumnApi = (
+  payload: createColumnType,
+): AxiosPromise<Column> => {
   return http.post('/columns', payload);
 };
 
-type AddColumnType = {
+type createColumnType = {
   title: string;
   description: string | null;
 };

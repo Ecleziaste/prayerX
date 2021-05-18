@@ -19,7 +19,7 @@ import InputAdd from './InputAdd';
 import Task from './Task';
 import ButtonLong from '../../../components/ButtonLong';
 import {DeskScreenProps} from '../UserNavigator';
-import {getCards, addCard} from '../../../store/cards/actions';
+import {addCard} from '../../../store/cards/actions';
 const DeskScreen: React.FC<Props> = ({
   route: {
     params: {id},
@@ -35,8 +35,7 @@ const DeskScreen: React.FC<Props> = ({
   const cardsIds = useSelector((state: RootState) =>
     selectCardsIdsByColumnId(state, id),
   )!;
-  const cards = useSelector(selectCardsIds);
-  const cardsSubscribed = useSelector(selectSubscribedCardsIds);
+
   const cardsAnswered = useSelector(selectCheckedCardsIds);
   const cardsUnanswered = useSelector(selectUncheckedCardsIds);
 
@@ -76,17 +75,12 @@ const DeskScreen: React.FC<Props> = ({
           description: '',
           checked: false,
           columnId: id,
-          commentsIds: [],
         }),
       );
     } catch (err) {
       Alert.alert(err.message);
     }
   };
-
-  // useEffect(() => {
-  //   dispatch(getCards());
-  // }, []);
 
   return (
     <Container>
@@ -101,17 +95,17 @@ const DeskScreen: React.FC<Props> = ({
           <Title>{title}</Title>
         </TitleWrapper>
         <TabsContainer>
-          <MyPrayers active={myPrayers} onPress={handleLeftTabClick}>
+          <MyPrayersTab active={myPrayers} onPress={handleLeftTabClick}>
             <MyPrayersText active={myPrayers}>my prayers</MyPrayersText>
-          </MyPrayers>
-          <Subscribed active={subscribed} onPress={handleRightTabClick}>
+          </MyPrayersTab>
+          <SubscribedTab active={subscribed} onPress={handleRightTabClick}>
             <SubscribedInnerContent>
               <SubscribedText active={subscribed}>subscribed</SubscribedText>
               <SubscribedIcon>
                 <SubscribedIconText>3</SubscribedIconText>
               </SubscribedIcon>
             </SubscribedInnerContent>
-          </Subscribed>
+          </SubscribedTab>
         </TabsContainer>
       </DeskScreenHeader>
       <InputAdd onSubmit={onSubmit} />
@@ -124,9 +118,9 @@ const DeskScreen: React.FC<Props> = ({
         />
       ) : (
         <DeskScreenBody
-          data={cards}
+          data={cardsIds}
           renderItem={({item}: any) => <Task id={item} />}
-          keyExtractor={item => item + '2'}
+          keyExtractor={item => item + '1'}
         />
       )}
       <ButtonLong text={btnText} handlerFunc={() => handleBtnPush()} />
@@ -140,10 +134,9 @@ const DeskScreen: React.FC<Props> = ({
           <AnsweredPrayers
             data={cardsAnswered}
             renderItem={({item}: any) => <Task id={item} />}
-            keyExtractor={item => item + '4'}
+            keyExtractor={item => String(item)}
           />
         )}
-      {/* TODO: табы из навигейшн */}
     </Container>
   );
 };
@@ -187,7 +180,7 @@ const TabsContainer = styled.View`
   flex-flow: row nowrap;
   justify-content: space-evenly;
 `;
-const MyPrayers = styled.TouchableOpacity<{active: boolean}>`
+const MyPrayersTab = styled.TouchableOpacity<{active: boolean}>`
   width: 50%;
   justify-content: center;
   align-items: center;
@@ -200,7 +193,7 @@ const MyPrayersText = styled.Text<{active: boolean}>`
   color: ${props =>
     props.active ? 'rgba(114, 168, 188, 1)' : 'rgba(200, 200, 200, 1)'};
 `;
-const Subscribed = styled.TouchableOpacity<{active: boolean}>`
+const SubscribedTab = styled.TouchableOpacity<{active: boolean}>`
   width: 50%;
   justify-content: center;
   align-items: center;

@@ -26,7 +26,6 @@ type Props = {
 };
 
 const Container = styled.TouchableOpacity`
-  width: 100%;
   margin: 0 15px 10px 15px;
   border-width: 1px;
   border-radius: 4px;

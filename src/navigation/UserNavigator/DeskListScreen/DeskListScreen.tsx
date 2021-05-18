@@ -16,7 +16,6 @@ import {getComments} from '../../../store/comments/actions';
 
 const DeskListScreen: React.FC<Props> = () => {
   const columnsIds = useSelector(selectColumns, shallowEqual);
-  const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const onSubmit = async ({title}: {title: string}) => {
@@ -60,11 +59,13 @@ const DeskListScreen: React.FC<Props> = () => {
           )}
         />
       </DesklistHeader>
-      <DesklistBody>
-        {columnsIds.map(id => {
-          return <Desk id={id} key={id} />;
-        })}
-      </DesklistBody>
+      <DesklistBodyContainer>
+        <DesklistBody
+          data={columnsIds}
+          renderItem={({item}: any) => <Desk id={item} />}
+          keyExtractor={item => String(item)}
+        />
+      </DesklistBodyContainer>
     </Container>
   );
 };
@@ -104,9 +105,14 @@ const DeskTitle = styled.View`
   justify-content: space-between;
   /* text-align: center; */
 `;
-const DesklistBody = styled.View`
-  width: 100%;
-  padding: 0 15px 0 15px;
-  align-items: center;
+const DesklistBodyContainer = styled.SafeAreaView`
+  /* width: 100%; */
+  /* padding: 0 15px 0 15px; */
+  /* align-items: center; */
+`;
+const DesklistBody = styled.FlatList`
+  /* width: 100%; */
+  /* padding: 0 15px 0 15px; */
+  /* align-items: center; */
 `;
 const InputWrapper = styled.View``;

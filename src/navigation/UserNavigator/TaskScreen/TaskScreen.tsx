@@ -1,9 +1,5 @@
 import React from 'react';
-import BACK_ICON from '../../../assets/icons/Back/back.png';
-import PRAYER_LINE_ICON from '../../../assets/icons/HandsWhite/prayer_line.png';
-import STATE_RED_ICON from '../../../assets/icons/State/Red.png';
-import ADD_WHITE_ICON from '../../../assets/icons/AddWhite.png';
-import COMMENT_ADD_ICON from '../../../assets/icons/CommentAdd.png';
+
 import {Image} from 'react-native';
 import {RootState} from '../../../store';
 import {Alert, View} from 'react-native';
@@ -18,6 +14,11 @@ import Comment from './Comment';
 import {TaskScreenProps} from '../UserNavigator';
 import {getComments, addComment} from '../../../store/comments/actions';
 import {selectCommentsIdsByPrayerId} from '../../../store/comments/selectors';
+import BACK_ICON from '../../../assets/icons/Back/back.png';
+import PRAYER_LINE_ICON from '../../../assets/icons/HandsWhite/prayer_line.png';
+import STATE_RED_ICON from '../../../assets/icons/State/Red.png';
+import ADD_WHITE_ICON from '../../../assets/icons/AddWhite.png';
+import COMMENT_ADD_ICON from '../../../assets/icons/CommentAdd.png';
 
 const TaskScreen: React.FC<Props> = ({
   route: {
@@ -52,71 +53,70 @@ const TaskScreen: React.FC<Props> = ({
           <Title>{title}</Title>
         </TitleWrapper>
       </Header>
-      <Statistics>
-        <StatHeader>
-          <StatePic>
-            <Image source={STATE_RED_ICON} />
-          </StatePic>
-          <StatHeaderText>Last prayed ...</StatHeaderText>
-        </StatHeader>
-        <StatBody>
-          <FirstStatContainer>
-            <Count>
-              <DateText>July 25 2017</DateText>
-            </Count>
-            <Info>
-              <InfoText>Times Prayed By Others</InfoText>
-            </Info>
-            <Opened>Opened for 4 days</Opened>
-          </FirstStatContainer>
-          <StatContainer>
-            <Count>
-              <CountText>123</CountText>
-            </Count>
-            <Info>
-              <InfoText>Times Prayed Total</InfoText>
-            </Info>
-          </StatContainer>
-          <StatContainer>
-            <Count>
-              <CountText>63</CountText>
-            </Count>
-            <Info>
-              <InfoText>Times Prayed By Me</InfoText>
-            </Info>
-          </StatContainer>
-          <StatContainer>
-            <Count>
-              <CountText>60</CountText>
-            </Count>
-            <Info>
-              <InfoText>Times Prayed By Others</InfoText>
-            </Info>
-          </StatContainer>
-        </StatBody>
-      </Statistics>
-      <Members>
-        <MembersTitle>members</MembersTitle>
-        <MembersContent>
-          <Member />
-          <Member />
-          <Member />
-          <Addmember>
-            <Image source={ADD_WHITE_ICON} />
-          </Addmember>
-        </MembersContent>
-      </Members>
-      <Comments>
-        <CommentsTitle>comments</CommentsTitle>
-        <CommentsList
-          keyExtractor={item => item + '1'}
-          data={commentsIds}
-          renderItem={({item}: any) => <Comment id={item} />}
-        />
-        {/* <View>
-          <Comment id={id} />
-        </View> */}
-      </Comments>
+      <InnerContainer>
+        <Statistics>
+          <StatHeader>
+            <StatePic>
+              <Image source={STATE_RED_ICON} />
+            </StatePic>
+            <StatHeaderText>Last prayed ...</StatHeaderText>
+          </StatHeader>
+          <StatBody>
+            <FirstStatContainer>
+              <Count>
+                <DateText>July 25 2017</DateText>
+              </Count>
+              <Info>
+                <InfoText>Times Prayed By Others</InfoText>
+              </Info>
+              <Opened>Opened for 4 days</Opened>
+            </FirstStatContainer>
+            <StatContainer>
+              <Count>
+                <CountText>123</CountText>
+              </Count>
+              <Info>
+                <InfoText>Times Prayed Total</InfoText>
+              </Info>
+            </StatContainer>
+            <StatContainer>
+              <Count>
+                <CountText>63</CountText>
+              </Count>
+              <Info>
+                <InfoText>Times Prayed By Me</InfoText>
+              </Info>
+            </StatContainer>
+            <StatContainer>
+              <Count>
+                <CountText>60</CountText>
+              </Count>
+              <Info>
+                <InfoText>Times Prayed By Others</InfoText>
+              </Info>
+            </StatContainer>
+          </StatBody>
+        </Statistics>
+        <Members>
+          <MembersTitle>members</MembersTitle>
+          <MembersContent>
+            <Member />
+            <Member />
+            <Member />
+            <Addmember>
+              <Image source={ADD_WHITE_ICON} />
+            </Addmember>
+          </MembersContent>
+        </Members>
+        <Comments>
+          <CommentsTitle>comments</CommentsTitle>
+          <CommentsList
+            keyExtractor={item => item + '1'}
+            data={commentsIds}
+            renderItem={({item}: any) => <Comment id={item} />}
+          />
+        </Comments>
+      </InnerContainer>
       <FormWrapper>
         <Form
           onSubmit={onSubmit}
@@ -149,6 +149,7 @@ const Container = styled.SafeAreaView`
   flex: 1;
   align-self: stretch;
 `;
+const InnerContainer = styled.ScrollView``;
 const Header = styled.View`
   width: 100%;
   height: 130px;
@@ -272,28 +273,30 @@ const MembersContent = styled.View`
   margin-top: 15px;
 `;
 const Addmember = styled.TouchableOpacity``;
-const Comments = styled.View`
-  width: 100%;
+const Comments = styled.SafeAreaView`
+  flex: 1;
 `;
 const CommentsTitle = styled(MembersTitle)`
   padding: 10px 15px 0 15px;
 `;
 const CommentsList = styled.FlatList`
-  margin-top: 15px;
+  margin: 15px 0 40px 0;
+  /* margin внизу нужен, чтобы инпут не наезжал на FlatList */
   border-top-width: 1px;
   border-top-color: #e5e5e5;
 `;
-const FormWrapper = styled.View`
+const FormWrapper = styled.SafeAreaView`
+  flex: 1;
   position: absolute;
   bottom: 0;
   left: 0;
   padding: 0 15px;
+  background-color: white;
 `;
 const AddComment = styled.View`
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: center;
-  background-color: white;
 `;
 const AddCommentImage = styled.TouchableOpacity`
   width: 20px;

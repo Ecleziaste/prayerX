@@ -1,12 +1,15 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-const InputField: React.FC<Props> = ({placeholder, input, value}) => {
+const InputField: React.FC<Props> = ({placeholder, input, value, secure}) => {
+  console.log('secure', secure);
+
   return (
     <Input
       value={(value = input.onChange)}
       placeholder={placeholder}
       {...input}
+      secureTextEntry={secure}
     />
   );
 };
@@ -24,4 +27,5 @@ type Props = {
   props: any;
   input: any;
   value: string;
+  secure?: boolean;
 };

@@ -1,26 +1,23 @@
 import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
 import {ActionType} from '../types';
-import {PrayersApi, addPrayerApi} from './api';
+import {getPrayersApi, createPrayerApi} from './api';
 import {Prayer} from './slice';
 
 export const changeTitle = createAction<ActionType>('cards/change');
 
-export const getCards = createAsyncThunk<Prayer>(
-  'cards/getCards',
-  async params => {
-    const {data} = await PrayersApi();
-    if (data.message) {
-      throw new Error('Error');
-    }
+export const getCards = createAsyncThunk<Prayer>('cards/getCards', async () => {
+  const {data} = await getPrayersApi();
+  if (data.message) {
+    throw new Error('Error');
+  }
 
-    return data;
-  },
-);
+  return data;
+});
 
 export const addCard = createAsyncThunk<Prayer, Params>(
   'cards/addCard',
   async params => {
-    const {data} = await addPrayerApi(params);
+    const {data} = await createPrayerApi(params);
     if (data.message) {
       throw new Error('Error');
     }
@@ -36,5 +33,4 @@ type Params = {
   checked: boolean;
 
   columnId: number;
-  commentsIds: Array<number>;
 };

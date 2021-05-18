@@ -2,15 +2,18 @@ import {AxiosPromise} from 'axios';
 import {http} from '../../services/http';
 import {Comment} from './slice';
 
-export const CommentsApi = (): AxiosPromise<Comment> => {
+export const getCommentsApi = (): AxiosPromise<Comment> => {
   return http.get('/comments');
 };
 
-export const addCommentApi = (payload: AddComment): AxiosPromise<Comment> => {
-  return http.post('/comments', payload);
+export const createCommentApi = (
+  payload: createComment,
+): AxiosPromise<Comment> => {
+  const {prayerId, ...body} = payload;
+  return http.post(`/prayers/${String(prayerId)}/comments`, body);
 };
 
-type AddComment = {
+type createComment = {
   body: string;
   prayerId: number;
 };

@@ -8,6 +8,7 @@ import {setUser, signUp} from '../../../store/user/actions';
 import ButtonLong from '../../../components/ButtonLong';
 import InputField from '../../../components/InputField';
 import InputContainer from '../../../components/InputContainer';
+import CIRCLED_ARROW_ICON from '../../../assets/icons/CircledArrowLeft.png';
 
 export const RegisterScreen: React.FC<Props> = () => {
   const navigation = useNavigation();
@@ -15,9 +16,6 @@ export const RegisterScreen: React.FC<Props> = () => {
 
   const onSubmit = async (values: ValuesType) => {
     const data = {
-      // email: '123123@mail.ru',
-      // password: '17',
-      // name: 'Boiiii',
       email: values.Email,
       password: values.Password,
       name: values.Login,
@@ -32,7 +30,7 @@ export const RegisterScreen: React.FC<Props> = () => {
   return (
     <Container>
       <BackBtn onPress={() => navigation.goBack()}>
-        <Image source={'../../../assets/icons/CircledArrowLeft.png'} />
+        <Image source={CIRCLED_ARROW_ICON} />
       </BackBtn>
       <Title>Please register</Title>
       <Form
@@ -57,6 +55,7 @@ export const RegisterScreen: React.FC<Props> = () => {
             </InputContainer>
             <InputContainer>
               <Field
+                secure
                 name="Password"
                 component={InputField}
                 validate={value => (value ? undefined : 'Required')}
