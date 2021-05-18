@@ -1,4 +1,5 @@
 import React from 'react';
+import ADD_BIG_ICON from '../../../../assets/icons/AddBig.png';
 import styled from 'styled-components/native';
 import InputField from '../../../../components/InputField';
 import {Form, Field} from 'react-final-form';
@@ -12,7 +13,7 @@ const InputAdd: React.FC<Props> = ({onSubmit}) => {
         render={({handleSubmit}) => (
           <AddPrayer>
             <AddImage onPress={() => handleSubmit()}>
-              <Image source={require('../../../../icons/AddBig.png')}></Image>
+              <Image source={ADD_BIG_ICON} />
             </AddImage>
             <Field
               name="title"
@@ -20,7 +21,8 @@ const InputAdd: React.FC<Props> = ({onSubmit}) => {
               placeholder="Add a prayer..."
             />
           </AddPrayer>
-        )}></Form>
+        )}
+      />
     </Container>
   );
 };

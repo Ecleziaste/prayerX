@@ -92,10 +92,10 @@ const DeskScreen: React.FC<Props> = ({
     <Container>
       <DeskScreenHeader>
         <BackBtn onPress={() => navigation.goBack()}>
-          <Image source={require(CIRCLED_ARROW_ICON)} />
+          <Image source={CIRCLED_ARROW_ICON} />
         </BackBtn>
         <SettingsIcon>
-          <Image source={require(SETTINGS_ICON)} />
+          <Image source={SETTINGS_ICON} />
         </SettingsIcon>
         <TitleWrapper>
           <Title>{title}</Title>

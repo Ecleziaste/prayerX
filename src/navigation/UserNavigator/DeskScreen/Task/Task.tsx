@@ -7,6 +7,9 @@ import AppRoutes from '../../../route';
 import styled from 'styled-components/native';
 import {useSelector, useDispatch} from 'react-redux';
 import CheckBox from '@react-native-community/checkbox';
+import STATE_RED_ICON from '../../../../assets/icons/State/Red.png';
+import USER_ICON from '../../../../assets/icons/User/user.png';
+import PRAYER_ICON from '../../../../assets/icons/HandsBlue/prayer_line.png';
 
 const Task: React.FC<Props> = ({id}) => {
   const dispatch = useDispatch();
@@ -22,7 +25,7 @@ const Task: React.FC<Props> = ({id}) => {
     <TaskContainer
       onPress={() => navigation.navigate(AppRoutes.TaskScreen, {id})}>
       <StateBox>
-        <StateIcon source={require('../../../../icons/State/Red.png')} />
+        <StateIcon source={STATE_RED_ICON} />
       </StateBox>
       <CheckBox
         // tintColors={{true: #ffffff, false: #ffffff}}
@@ -38,13 +41,11 @@ const Task: React.FC<Props> = ({id}) => {
           {title}
         </TaskTitle>
       </InnerText>
-      <UserIcon source={require('../../../../icons/User/user.png')} />
+      <UserIcon source={USER_ICON} />
       <UserCount>
         <Text>{users}</Text>
       </UserCount>
-      <PrayerIcon
-        source={require('../../../../icons/HandsBlue/prayer_line.png')}
-      />
+      <PrayerIcon source={PRAYER_ICON} />
       <PrayerCount>
         <Text>{prayers}</Text>
       </PrayerCount>

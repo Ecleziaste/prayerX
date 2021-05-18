@@ -54,7 +54,7 @@ const DeskListScreen: React.FC<Props> = () => {
                 />
               </InputWrapper>
               <AddNewDeskBtn onPress={handleSubmit}>
-                <Image source={require(PLUS_ICON)} />
+                <Image source={PLUS_ICON} />
               </AddNewDeskBtn>
             </DeskTitle>
           )}

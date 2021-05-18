@@ -1,4 +1,9 @@
 import React from 'react';
+import BACK_ICON from '../../../assets/icons/Back/back.png';
+import PRAYER_LINE_ICON from '../../../assets/icons/HandsWhite/prayer_line.png';
+import STATE_RED_ICON from '../../../assets/icons/State/Red.png';
+import ADD_WHITE_ICON from '../../../assets/icons/AddWhite.png';
+import COMMENT_ADD_ICON from '../../../assets/icons/CommentAdd.png';
 import {Image} from 'react-native';
 import {RootState} from '../../../store';
 import {Alert, View} from 'react-native';
@@ -13,9 +18,6 @@ import Comment from './Comment';
 import {TaskScreenProps} from '../UserNavigator';
 import {getComments, addComment} from '../../../store/comments/actions';
 import {selectCommentsIdsByPrayerId} from '../../../store/comments/selectors';
-import BACK_ICON from '../../../assets/icons/Back/back.png';
-import PRAYER_LINE_ICON from '../../../assets/icons/HandsWhite/prayer_line.png';
-import STATE_RED_ICON from '../../../assets/icons/State/Red.png';
 
 const TaskScreen: React.FC<Props> = ({
   route: {
@@ -41,10 +43,10 @@ const TaskScreen: React.FC<Props> = ({
     <Container>
       <Header>
         <BackBtn onPress={() => navigation.goBack()}>
-          <Image source={require(BACK_ICON)} />
+          <Image source={BACK_ICON} />
         </BackBtn>
         <PrayBtn>
-          <Image source={require(PRAYER_LINE_ICON)} />
+          <Image source={PRAYER_LINE_ICON} />
         </PrayBtn>
         <TitleWrapper>
           <Title>{title}</Title>
@@ -53,7 +55,7 @@ const TaskScreen: React.FC<Props> = ({
       <Statistics>
         <StatHeader>
           <StatePic>
-            <Image source={require(STATE_RED_ICON)} />
+            <Image source={STATE_RED_ICON} />
           </StatePic>
           <StatHeaderText>Last prayed ...</StatHeaderText>
         </StatHeader>
@@ -100,7 +102,7 @@ const TaskScreen: React.FC<Props> = ({
           <Member />
           <Member />
           <Addmember>
-            <Image source={require('../../../icons/AddWhite.png')} />
+            <Image source={ADD_WHITE_ICON} />
           </Addmember>
         </MembersContent>
       </Members>
@@ -121,7 +123,7 @@ const TaskScreen: React.FC<Props> = ({
           render={({handleSubmit}) => (
             <AddComment>
               <AddCommentImage onPress={handleSubmit}>
-                <Image source={require('../../../icons/CommentAdd.png')} />
+                <Image source={COMMENT_ADD_ICON} />
               </AddCommentImage>
               <Field
                 name="body"

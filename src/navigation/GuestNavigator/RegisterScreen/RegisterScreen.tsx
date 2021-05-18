@@ -32,7 +32,7 @@ export const RegisterScreen: React.FC<Props> = () => {
   return (
     <Container>
       <BackBtn onPress={() => navigation.goBack()}>
-        <Image source={require('../../../icons/CircledArrowLeft.png')}></Image>
+        <Image source={'../../../assets/icons/CircledArrowLeft.png'} />
       </BackBtn>
       <Title>Please register</Title>
       <Form
@@ -64,9 +64,10 @@ export const RegisterScreen: React.FC<Props> = () => {
               />
             </InputContainer>
 
-            <ButtonLong text="register" handlerFunc={handleSubmit}></ButtonLong>
+            <ButtonLong text="register" handlerFunc={handleSubmit} />
           </FormWrapper>
-        )}></Form>
+        )}
+      />
     </Container>
   );
 };
