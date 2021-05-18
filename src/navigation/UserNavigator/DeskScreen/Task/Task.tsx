@@ -10,14 +10,17 @@ import CheckBox from '@react-native-community/checkbox';
 import STATE_RED_ICON from '../../../../assets/icons/State/Red.png';
 import USER_ICON from '../../../../assets/icons/User/user.png';
 import PRAYER_ICON from '../../../../assets/icons/HandsBlue/prayer_line.png';
+import {updateCard, getCards, getCard} from '../../../../store/cards/actions';
 
 const Task: React.FC<Props> = ({id}) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  const {checked} = useSelector((state: RootState) =>
+    selectCardById(state, id),
+  )!;
+  const [toggleCheckBox, setToggleCheckBox] = useState(checked);
   const {title} = useSelector((state: RootState) => selectCardById(state, id))!;
-  const {users} = useSelector((state: RootState) => selectCardById(state, id))!;
-  const {prayers} = useSelector((state: RootState) =>
+  const {description} = useSelector((state: RootState) =>
     selectCardById(state, id),
   )!;
 
@@ -31,7 +34,18 @@ const Task: React.FC<Props> = ({id}) => {
         // tintColors={{true: #ffffff, false: #ffffff}}
         disabled={false}
         value={toggleCheckBox}
-        onValueChange={newValue => setToggleCheckBox(newValue)}
+        onValueChange={() => {
+          setToggleCheckBox(!toggleCheckBox);
+          dispatch(
+            updateCard({
+              prayerId: id,
+              title,
+              description,
+              checked: !toggleCheckBox,
+            }),
+          );
+          dispatch(getCard({prayerId: id}));
+        }}
       />
       <InnerText>
         <TaskTitle
@@ -43,11 +57,11 @@ const Task: React.FC<Props> = ({id}) => {
       </InnerText>
       <UserIcon source={USER_ICON} />
       <UserCount>
-        <Text>{users}</Text>
+        <Text>5</Text>
       </UserCount>
       <PrayerIcon source={PRAYER_ICON} />
       <PrayerCount>
-        <Text>{prayers}</Text>
+        <Text>48</Text>
       </PrayerCount>
     </TaskContainer>
   );

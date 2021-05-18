@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {getCards, addCard} from './actions';
+import {getCards, addCard, getCard} from './actions';
 
 const initialState = [] as Array<Prayer>;
 
@@ -17,6 +17,15 @@ const cardsSlice = createSlice({
     [addCard.fulfilled.type]: (state, action: PayloadAction<Prayer>) => {
       return [action.payload, ...state];
     },
+    [getCard.fulfilled.type]: (state, action: PayloadAction<Prayer>) => {
+      const newState = state.map(prayer => {
+        if (prayer.id === action.payload.id) {
+          return action.payload;
+        }
+        return prayer;
+      });
+      return newState;
+    },
   },
 });
 const {reducer, actions} = cardsSlice;
@@ -32,9 +41,4 @@ export type Prayer = {
   commentsIds: Array<number>;
 
   message: string;
-
-  answered: boolean;
-  users: number;
-  prayers: number;
-  subscribed: boolean;
 };

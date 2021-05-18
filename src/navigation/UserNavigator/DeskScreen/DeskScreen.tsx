@@ -1,18 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import CIRCLED_ARROW_ICON from '../../../assets/icons/CircledArrowLeft.png';
 import SETTINGS_ICON from '../../../assets/icons/Settings.png';
 import {RootState} from '../../../store';
 import {Alert} from 'react-native';
-import {useSelector, useDispatch, shallowEqual} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {
-  selectCardsIds,
-  selectSubscribedCardsIds,
   selectCheckedCardsIds,
   selectUncheckedCardsIds,
   selectCardsIdsByColumnId,
 } from '../../../store/cards/selectors';
 import {selectColumnById} from '../../../store/columns/selectors';
-import {Image} from 'react-native';
+import {Image, View, SafeAreaView} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import styled from 'styled-components/native';
 import InputAdd from './InputAdd';
@@ -111,32 +109,34 @@ const DeskScreen: React.FC<Props> = ({
       <InputAdd onSubmit={onSubmit} />
 
       {tab ? (
-        <DeskScreenBody
-          data={cardsIds}
-          renderItem={({item}: any) => <Task id={item} />}
-          keyExtractor={item => item + '1'}
-        />
-      ) : (
-        <DeskScreenBody
-          data={cardsIds}
-          renderItem={({item}: any) => <Task id={item} />}
-          keyExtractor={item => item + '1'}
-        />
-      )}
-      <ButtonLong text={btnText} handlerFunc={() => handleBtnPush()} />
-      {btnPushed && (
-          <UnansweredPrayers
-            data={cardsUnanswered}
-            renderItem={({item}: any) => <Task id={item} />}
-            keyExtractor={item => item + '3'}
-          />
-        ) && (
-          <AnsweredPrayers
-            data={cardsAnswered}
-            renderItem={({item}: any) => <Task id={item} />}
-            keyExtractor={item => String(item)}
-          />
-        )}
+        <DeskScreenBody>
+          {btnPushed ? (
+            <View>
+              <AnsweredPrayers
+                data={cardsUnanswered}
+                renderItem={({item}: any) => <Task id={item} />}
+                keyExtractor={item => String(item)}
+              />
+              <ButtonLong text={btnText} handlerFunc={() => handleBtnPush()} />
+              <UnansweredPrayers
+                data={cardsAnswered}
+                renderItem={({item}: any) => <Task id={item} />}
+                keyExtractor={item => String(item)}
+              />
+            </View>
+          ) : (
+            <SafeAreaView>
+              <ButtonLong text={btnText} handlerFunc={() => handleBtnPush()} />
+              <DeskScreenList
+                data={cardsIds}
+                renderItem={({item}: any) => <Task id={item} />}
+                keyExtractor={item => item + '1'}
+              />
+              <ButtonLong text={btnText} handlerFunc={() => handleBtnPush()} />
+            </SafeAreaView>
+          )}
+        </DeskScreenBody>
+      ) : null}
     </Container>
   );
 };
@@ -157,11 +157,12 @@ const DeskScreenHeader = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: #e5e5e5;
 `;
-const DeskScreenBody = styled.FlatList``;
+const DeskScreenBody = styled.SafeAreaView``;
+const DeskScreenList = styled.FlatList``;
 const AnsweredPrayers = styled.FlatList`
   text-decoration: line-through;
 `;
-const UnansweredPrayers = AnsweredPrayers;
+const UnansweredPrayers = DeskScreenList;
 const TitleWrapper = styled.View`
   flex: 1;
   justify-content: center;
