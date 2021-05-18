@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react';
+import CIRCLED_ARROW_ICON from '../../../assets/icons/CircledArrowLeft.png';
+import SETTINGS_ICON from '../../../assets/icons/Settings.png';
 import {RootState} from '../../../store';
 import {Alert} from 'react-native';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
@@ -11,14 +13,13 @@ import {
 } from '../../../store/cards/selectors';
 import {selectColumnById} from '../../../store/columns/selectors';
 import {Image} from 'react-native';
-import {useRoute, useNavigation} from '@react-navigation/core';
+import {useNavigation} from '@react-navigation/core';
 import styled from 'styled-components/native';
 import InputAdd from './InputAdd';
 import Task from './Task';
 import ButtonLong from '../../../components/ButtonLong';
 import {DeskScreenProps} from '../UserNavigator';
 import {getCards, addCard} from '../../../store/cards/actions';
-
 const DeskScreen: React.FC<Props> = ({
   route: {
     params: {id},
@@ -91,10 +92,10 @@ const DeskScreen: React.FC<Props> = ({
     <Container>
       <DeskScreenHeader>
         <BackBtn onPress={() => navigation.goBack()}>
-          <Image source={require('../../../icons/CircledArrowLeft.png')} />
+          <Image source={require(CIRCLED_ARROW_ICON)} />
         </BackBtn>
         <SettingsIcon>
-          <Image source={require('../../../icons/Settings.png')} />
+          <Image source={require(SETTINGS_ICON)} />
         </SettingsIcon>
         <TitleWrapper>
           <Title>{title}</Title>
@@ -114,9 +115,7 @@ const DeskScreen: React.FC<Props> = ({
         </TabsContainer>
       </DeskScreenHeader>
       <InputAdd onSubmit={onSubmit} />
-      {/* {cardsIds.map(id => {
-        return <Desk id={id} key={id} />;
-      })} */}
+
       {tab ? (
         <DeskScreenBody
           data={cardsIds}
@@ -132,12 +131,19 @@ const DeskScreen: React.FC<Props> = ({
       )}
       <ButtonLong text={btnText} handlerFunc={() => handleBtnPush()} />
       {btnPushed && (
-        <AnsweredPrayers
-          data={cardsAnswered}
-          renderItem={({item}: any) => <Task id={item} />}
-          keyExtractor={item => item + '3'}
-        />
-      )}
+          <UnansweredPrayers
+            data={cardsUnanswered}
+            renderItem={({item}: any) => <Task id={item} />}
+            keyExtractor={item => item + '3'}
+          />
+        ) && (
+          <AnsweredPrayers
+            data={cardsAnswered}
+            renderItem={({item}: any) => <Task id={item} />}
+            keyExtractor={item => item + '4'}
+          />
+        )}
+      {/* TODO: табы из навигейшн */}
     </Container>
   );
 };
@@ -162,6 +168,7 @@ const DeskScreenBody = styled.FlatList``;
 const AnsweredPrayers = styled.FlatList`
   text-decoration: line-through;
 `;
+const UnansweredPrayers = AnsweredPrayers;
 const TitleWrapper = styled.View`
   flex: 1;
   justify-content: center;
@@ -179,7 +186,6 @@ const TabsContainer = styled.View`
   flex: 1;
   flex-flow: row nowrap;
   justify-content: space-evenly;
-  /* padding-bottom: 17px; */
 `;
 const MyPrayers = styled.TouchableOpacity<{active: boolean}>`
   width: 50%;

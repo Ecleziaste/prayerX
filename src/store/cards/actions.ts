@@ -29,7 +29,7 @@ export const addCard = createAsyncThunk<Prayer, Params>(
     return data;
   },
 );
-
+//TODO: GET и PUT, чтобы поствить checked d конкретную таску??
 type Params = {
   title: string;
   description: string;

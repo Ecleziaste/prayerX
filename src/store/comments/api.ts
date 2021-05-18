@@ -12,5 +12,5 @@ export const addCommentApi = (payload: AddComment): AxiosPromise<Comment> => {
 
 type AddComment = {
   body: string;
-  // prayerId: number;
+  prayerId: number;
 };

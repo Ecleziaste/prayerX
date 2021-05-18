@@ -2,12 +2,9 @@ import React from 'react';
 import {Image} from 'react-native';
 import {RootState} from '../../../store';
 import {Alert, View} from 'react-native';
-import {useRoute, useNavigation} from '@react-navigation/core';
-import {useSelector, useDispatch, shallowEqual} from 'react-redux';
-import {
-  selectCardById,
-  selectCardsIdsByColumnId,
-} from '../../../store/cards/selectors';
+import {useNavigation} from '@react-navigation/core';
+import {useSelector, useDispatch} from 'react-redux';
+import {selectCardById} from '../../../store/cards/selectors';
 import styled from 'styled-components/native';
 import {Form, Field} from 'react-final-form';
 import InputField from '../../../components/InputField';
@@ -15,10 +12,10 @@ import Member from './Member';
 import Comment from './Comment';
 import {TaskScreenProps} from '../UserNavigator';
 import {getComments, addComment} from '../../../store/comments/actions';
-import {
-  selectCommentById,
-  selectCommentsIdsByPrayerId,
-} from '../../../store/comments/selectors';
+import {selectCommentsIdsByPrayerId} from '../../../store/comments/selectors';
+import BACK_ICON from '../../../assets/icons/Back/back.png';
+import PRAYER_LINE_ICON from '../../../assets/icons/HandsWhite/prayer_line.png';
+import STATE_RED_ICON from '../../../assets/icons/State/Red.png';
 
 const TaskScreen: React.FC<Props> = ({
   route: {
@@ -44,12 +41,10 @@ const TaskScreen: React.FC<Props> = ({
     <Container>
       <Header>
         <BackBtn onPress={() => navigation.goBack()}>
-          <Image source={require('../../../icons/Back/back.png')} />
+          <Image source={require(BACK_ICON)} />
         </BackBtn>
         <PrayBtn>
-          <Image
-            source={require('../../../icons/HandsWhite/prayer_line.png')}
-          />
+          <Image source={require(PRAYER_LINE_ICON)} />
         </PrayBtn>
         <TitleWrapper>
           <Title>{title}</Title>
@@ -58,7 +53,7 @@ const TaskScreen: React.FC<Props> = ({
       <Statistics>
         <StatHeader>
           <StatePic>
-            <Image source={require('../../../icons/State/Red.png')} />
+            <Image source={require(STATE_RED_ICON)} />
           </StatePic>
           <StatHeaderText>Last prayed ...</StatHeaderText>
         </StatHeader>
@@ -293,12 +288,10 @@ const FormWrapper = styled.View`
   padding: 0 15px;
 `;
 const AddComment = styled.View`
-  /* width: 100%;
-  position: absolute;
-  bottom: ; */
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: center;
+  background-color: white;
 `;
 const AddCommentImage = styled.TouchableOpacity`
   width: 20px;

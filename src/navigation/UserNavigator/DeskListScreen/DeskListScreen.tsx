@@ -1,4 +1,6 @@
 import React, {useEffect} from 'react';
+import CROSS_ICON from '../../../assets/icons/Cross.png';
+import PLUS_ICON from '../../../assets/icons/Plus.png';
 import {Image, Alert} from 'react-native';
 import styled from 'styled-components/native';
 import {Form, Field} from 'react-final-form';
@@ -8,7 +10,6 @@ import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {selectColumns} from '../../../store/columns/selectors';
 import {useNavigation} from '@react-navigation/core';
 import {setUser} from '../../../store/user/actions';
-import CROSS_ICON from '../../../icons/Cross.png';
 import {getColumns, addColumn} from '../../../store/columns/actions';
 import {getCards} from '../../../store/cards/actions';
 import {getComments} from '../../../store/comments/actions';
@@ -53,7 +54,7 @@ const DeskListScreen: React.FC<Props> = () => {
                 />
               </InputWrapper>
               <AddNewDeskBtn onPress={handleSubmit}>
-                <Image source={require('../../../icons/Plus.png')} />
+                <Image source={require(PLUS_ICON)} />
               </AddNewDeskBtn>
             </DeskTitle>
           )}
