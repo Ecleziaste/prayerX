@@ -1,11 +1,8 @@
 import React from 'react';
 import {RootState} from '../../../../store';
 import styled from 'styled-components/native';
-import {useSelector, useDispatch} from 'react-redux';
-import {
-  selectCommentById,
-  selectCommentsIdsByPrayerId,
-} from '../../../../store/comments/selectors';
+import {useSelector} from 'react-redux';
+import {selectCommentById} from '../../../../store/comments/selectors';
 
 const Comment: React.FC<Props> = ({id}) => {
   const {body} = useSelector((state: RootState) =>
@@ -37,8 +34,6 @@ const UserPic = styled.View`
   width: 46px;
   height: 46px;
   margin: 14px 9px 14px 12px;
-  /* justify-content: center;
-  align-items: center; */
   border-width: 1px;
   border-color: goldenrod;
   border-radius: 50px;

@@ -1,9 +1,6 @@
-import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
-import {ActionType} from '../types';
+import {createAsyncThunk} from '@reduxjs/toolkit';
 import {getColumnsApi, createColumnApi} from './api';
 import {Column} from './slice';
-
-export const changeTitle = createAction<ActionType>('columns/change');
 
 export const getColumns = createAsyncThunk<Column>(
   'columns/getColumns',

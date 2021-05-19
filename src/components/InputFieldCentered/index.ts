@@ -1,1 +1,1 @@
-export { default } from "./InputFieldCentered";
+export {default} from './InputFieldCentered';

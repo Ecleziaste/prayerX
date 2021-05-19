@@ -1,14 +1,12 @@
-import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
-import {ActionType} from '../types';
+import {createAsyncThunk} from '@reduxjs/toolkit';
+
 import {
   getPrayersApi,
   createPrayerApi,
   updatePrayerApi,
-  getPrayerApi,
+  // getPrayerApi,
 } from './api';
 import {Prayer} from './slice';
-
-export const changeTitle = createAction<ActionType>('cards/change');
 
 export const getCards = createAsyncThunk<Prayer>('cards/getCards', async () => {
   const {data} = await getPrayersApi();
@@ -43,17 +41,17 @@ export const updateCard = createAsyncThunk<Prayer, UpdateParams>(
   },
 );
 
-export const getCard = createAsyncThunk<Prayer, GetParams>(
-  'cards/getCard',
-  async params => {
-    const {data} = await getPrayerApi(params);
-    if (data.message) {
-      throw new Error('Error');
-    }
+// export const getCard = createAsyncThunk<Prayer, GetParams>(
+//   'cards/getCard',
+//   async params => {
+//     const {data} = await getPrayerApi(params);
+//     if (data.message) {
+//       throw new Error('Error');
+//     }
 
-    return data;
-  },
-);
+//     return data;
+//   },
+// );
 
 type CreateParams = {
   title: string;

@@ -10,7 +10,7 @@ import CheckBox from '@react-native-community/checkbox';
 import STATE_RED_ICON from '../../../../assets/icons/State/Red.png';
 import USER_ICON from '../../../../assets/icons/User/user.png';
 import PRAYER_ICON from '../../../../assets/icons/HandsBlue/prayer_line.png';
-import {updateCard, getCards, getCard} from '../../../../store/cards/actions';
+import {updateCard, getCard} from '../../../../store/cards/actions';
 
 const Task: React.FC<Props> = ({id}) => {
   const dispatch = useDispatch();
@@ -31,7 +31,6 @@ const Task: React.FC<Props> = ({id}) => {
         <StateIcon source={STATE_RED_ICON} />
       </StateBox>
       <CheckBox
-        // tintColors={{true: #ffffff, false: #ffffff}}
         disabled={false}
         value={toggleCheckBox}
         onValueChange={() => {
@@ -44,7 +43,7 @@ const Task: React.FC<Props> = ({id}) => {
               checked: !toggleCheckBox,
             }),
           );
-          dispatch(getCard({prayerId: id}));
+          // dispatch(getCard({prayerId: id}));
         }}
       />
       <InnerText>
@@ -86,7 +85,7 @@ const TaskContainer = styled.TouchableOpacity`
 const InnerText = styled.View`
   flex: 1;
 `;
-const TaskTitle = styled.Text`
+const TaskTitle = styled.Text<{isActive: boolean}>`
   font-size: 17px;
   line-height: 20px;
   text-decoration-line: ${props => (props.isActive ? 'line-through' : 'none')};

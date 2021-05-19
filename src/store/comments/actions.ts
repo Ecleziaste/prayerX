@@ -1,10 +1,6 @@
-import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
-import {ActionType} from '../types';
+import {createAsyncThunk} from '@reduxjs/toolkit';
 import {getCommentsApi, createCommentApi} from './api';
 import {Comment} from './slice';
-// import {selectCardById} from '../cards/selectors';
-
-export const changeTitle = createAction<ActionType>('cards/change');
 
 export const getComments = createAsyncThunk<Comment>(
   'comments/getComments',
@@ -22,7 +18,6 @@ export const addComment = createAsyncThunk<Comment, Params>(
   'comments/addComment',
   async params => {
     const {data} = await createCommentApi(params);
-    console.log('data to create comment', data);
 
     if (data.message) {
       throw new Error('Error');

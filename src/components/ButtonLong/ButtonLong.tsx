@@ -1,10 +1,7 @@
 import React from 'react';
-import {useNavigation} from '@react-navigation/core';
 import styled from 'styled-components/native';
 
 const Task: React.FC<Props> = ({text, handlerFunc}) => {
-  const navigation = useNavigation();
-
   return (
     <Btn onPress={() => handlerFunc()}>
       <BtnText>{text}</BtnText>

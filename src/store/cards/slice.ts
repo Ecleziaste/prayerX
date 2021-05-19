@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {getCards, addCard, getCard} from './actions';
+import {getCards, addCard, getCard, updateCard} from './actions';
 
 const initialState = [] as Array<Prayer>;
 
@@ -17,7 +17,7 @@ const cardsSlice = createSlice({
     [addCard.fulfilled.type]: (state, action: PayloadAction<Prayer>) => {
       return [action.payload, ...state];
     },
-    [getCard.fulfilled.type]: (state, action: PayloadAction<Prayer>) => {
+    [updateCard.fulfilled.type]: (state, action: PayloadAction<Prayer>) => {
       const newState = state.map(prayer => {
         if (prayer.id === action.payload.id) {
           return action.payload;

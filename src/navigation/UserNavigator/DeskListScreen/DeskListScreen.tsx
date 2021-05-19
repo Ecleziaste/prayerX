@@ -8,7 +8,6 @@ import InputFieldCentered from '../../../components/InputFieldCentered';
 import Desk from './Desk';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {selectColumns} from '../../../store/columns/selectors';
-import {useNavigation} from '@react-navigation/core';
 import {setUser} from '../../../store/user/actions';
 import {getColumns, addColumn} from '../../../store/columns/actions';
 import {getCards} from '../../../store/cards/actions';
@@ -26,7 +25,6 @@ const DeskListScreen: React.FC<Props> = () => {
     }
   };
 
-  // const userId = 206;
   useEffect(() => {
     dispatch(getColumns());
     dispatch(getCards());
@@ -103,16 +101,7 @@ const DeskTitle = styled.View`
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-between;
-  /* text-align: center; */
 `;
-const DesklistBodyContainer = styled.SafeAreaView`
-  /* width: 100%; */
-  /* padding: 0 15px 0 15px; */
-  /* align-items: center; */
-`;
-const DesklistBody = styled.FlatList`
-  /* width: 100%; */
-  /* padding: 0 15px 0 15px; */
-  /* align-items: center; */
-`;
+const DesklistBodyContainer = styled.SafeAreaView``;
+const DesklistBody = styled.FlatList``;
 const InputWrapper = styled.View``;

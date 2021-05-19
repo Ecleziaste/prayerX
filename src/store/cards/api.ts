@@ -20,10 +20,10 @@ export const updatePrayerApi = (
   return http.put(`/prayers/${String(prayerId)}`, body);
 };
 
-export const getPrayerApi = (payload: GetPrayer): AxiosPromise<Prayer> => {
-  const {prayerId} = payload;
-  return http.put(`/prayers/${String(prayerId)}`);
-};
+// export const getPrayerApi = (payload: GetPrayer): AxiosPromise<Prayer> => {
+//   const {prayerId} = payload;
+//   return http.put(`/prayers/${String(prayerId)}`);
+// };
 
 type CreatePrayer = {
   title: string;

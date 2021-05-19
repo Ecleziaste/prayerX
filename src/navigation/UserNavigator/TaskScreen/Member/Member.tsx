@@ -2,13 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 
 const Member: React.FC<Props> = () => {
-  return (
-    <Container>
-      {/* <ProfilePic
-        source={require('../../../../icons/HandsBlue/prayer_line@3x.png')}
-      /> */}
-    </Container>
-  );
+  return <Container>{/* <ProfilePic /> */}</Container>;
 };
 
 const Container = styled.View`

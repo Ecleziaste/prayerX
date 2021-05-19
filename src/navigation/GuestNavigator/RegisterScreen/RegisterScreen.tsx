@@ -4,7 +4,7 @@ import {Alert, Image} from 'react-native';
 import styled from 'styled-components/native';
 import {useNavigation} from '@react-navigation/core';
 import {useDispatch} from 'react-redux';
-import {setUser, signUp} from '../../../store/user/actions';
+import {signUp} from '../../../store/user/actions';
 import ButtonLong from '../../../components/ButtonLong';
 import InputField from '../../../components/InputField';
 import InputContainer from '../../../components/InputContainer';

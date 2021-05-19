@@ -97,12 +97,12 @@ const DeskScreen: React.FC<Props> = ({
           <Title>{title}</Title>
         </TitleWrapper>
         <TabsContainer>
-          <MyPrayersTab active={myPrayers} onPress={handleLeftTabClick}>
-            <MyPrayersText active={myPrayers}>my prayers</MyPrayersText>
+          <MyPrayersTab isActive={myPrayers} onPress={handleLeftTabClick}>
+            <MyPrayersText isActive={myPrayers}>my prayers</MyPrayersText>
           </MyPrayersTab>
-          <SubscribedTab active={subscribed} onPress={handleRightTabClick}>
+          <SubscribedTab isActive={subscribed} onPress={handleRightTabClick}>
             <SubscribedInnerContent>
-              <SubscribedText active={subscribed}>subscribed</SubscribedText>
+              <SubscribedText isActive={subscribed}>subscribed</SubscribedText>
               <SubscribedIcon>
                 <SubscribedIconText>3</SubscribedIconText>
               </SubscribedIcon>
@@ -152,7 +152,6 @@ const Container = styled.SafeAreaView`
   flex: 1;
   align-self: stretch;
   justify-content: flex-start;
-  /* align-items: flex-start; */
 `;
 const DeskScreenHeader = styled.View`
   width: 100%;
@@ -184,26 +183,26 @@ const TabsContainer = styled.View`
   flex-flow: row nowrap;
   justify-content: space-evenly;
 `;
-const MyPrayersTab = styled.TouchableOpacity<{active: boolean}>`
+const MyPrayersTab = styled.TouchableOpacity<{isActive: boolean}>`
   width: 50%;
   justify-content: center;
   align-items: center;
   border-bottom-width: 1px;
   border-bottom-color: ${props =>
-    props.active ? 'rgba(114, 168, 188, 1)' : 'rgba(200, 200, 200, 1)'};
+    props.isActive ? 'rgba(114, 168, 188, 1)' : 'rgba(200, 200, 200, 1)'};
 `;
-const MyPrayersText = styled.Text<{active: boolean}>`
+const MyPrayersText = styled.Text<{isActive: boolean}>`
   text-transform: uppercase;
   color: ${props =>
-    props.active ? 'rgba(114, 168, 188, 1)' : 'rgba(200, 200, 200, 1)'};
+    props.isActive ? 'rgba(114, 168, 188, 1)' : 'rgba(200, 200, 200, 1)'};
 `;
-const SubscribedTab = styled.TouchableOpacity<{active: boolean}>`
+const SubscribedTab = styled.TouchableOpacity<{isActive: boolean}>`
   width: 50%;
   justify-content: center;
   align-items: center;
   border-bottom-width: 1px;
   border-bottom-color: ${props =>
-    props.active ? 'rgba(114, 168, 188, 1)' : 'rgba(200, 200, 200, 1)'};
+    props.isActive ? 'rgba(114, 168, 188, 1)' : 'rgba(200, 200, 200, 1)'};
 `;
 const SubscribedInnerContent = styled.View`
   flex: 1;
@@ -211,10 +210,10 @@ const SubscribedInnerContent = styled.View`
   justify-content: center;
   align-items: center;
 `;
-const SubscribedText = styled.Text<{active: boolean}>`
+const SubscribedText = styled.Text<{isActive: boolean}>`
   text-transform: uppercase;
   color: ${props =>
-    props.active ? 'rgba(114, 168, 188, 1)' : 'rgba(200, 200, 200, 1)'};
+    props.isActive ? 'rgba(114, 168, 188, 1)' : 'rgba(200, 200, 200, 1)'};
 `;
 const SubscribedIcon = styled.View`
   width: 15px;

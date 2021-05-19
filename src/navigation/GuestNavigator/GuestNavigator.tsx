@@ -14,7 +14,6 @@ const GuestNavigator = () => {
         name={AppRoutes.LoginScreen}
         component={LoginScreen}
         options={{headerShown: false}}
-        // userHasLogged={userHasLogged}
       />
       <Stack.Screen
         name={AppRoutes.RegisterScreen}
@@ -27,6 +26,4 @@ const GuestNavigator = () => {
 
 export default GuestNavigator;
 
-type Props = {
-  userHasLogged: () => void;
-};
+type Props = {};

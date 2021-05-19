@@ -1,1 +1,1 @@
-export { default } from "./InputContainer";
+export {default} from './InputContainer';

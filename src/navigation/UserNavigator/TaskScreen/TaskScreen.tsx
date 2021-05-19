@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {Image} from 'react-native';
 import {RootState} from '../../../store';
 import {Alert, View} from 'react-native';
@@ -12,7 +11,7 @@ import InputField from '../../../components/InputField';
 import Member from './Member';
 import Comment from './Comment';
 import {TaskScreenProps} from '../UserNavigator';
-import {getComments, addComment} from '../../../store/comments/actions';
+import {addComment} from '../../../store/comments/actions';
 import {selectCommentsIdsByPrayerId} from '../../../store/comments/selectors';
 import BACK_ICON from '../../../assets/icons/Back/back.png';
 import PRAYER_LINE_ICON from '../../../assets/icons/HandsWhite/prayer_line.png';
@@ -53,7 +52,7 @@ const TaskScreen: React.FC<Props> = ({
           <Title>{title}</Title>
         </TitleWrapper>
       </Header>
-      <InnerContainer>
+      <Body nestedScrollEnabled={true}>
         <Statistics>
           <StatHeader>
             <StatePic>
@@ -108,16 +107,17 @@ const TaskScreen: React.FC<Props> = ({
             </Addmember>
           </MembersContent>
         </Members>
+        <CommentsTitle>comments</CommentsTitle>
         <Comments>
-          <CommentsTitle>comments</CommentsTitle>
           <CommentsList
+            nestedScrollEnabled={true}
             keyExtractor={item => item + '1'}
             data={commentsIds}
             renderItem={({item}: any) => <Comment id={item} />}
           />
         </Comments>
-      </InnerContainer>
-      <FormWrapper>
+      </Body>
+      <Footer>
         <Form
           onSubmit={onSubmit}
           render={({handleSubmit}) => (
@@ -133,7 +133,7 @@ const TaskScreen: React.FC<Props> = ({
             </AddComment>
           )}
         />
-      </FormWrapper>
+      </Footer>
     </Container>
   );
 };
@@ -149,12 +149,13 @@ const Container = styled.SafeAreaView`
   flex: 1;
   align-self: stretch;
 `;
-const InnerContainer = styled.ScrollView``;
+
 const Header = styled.View`
   width: 100%;
   height: 130px;
   background: #bfb393;
 `;
+const Body = styled.ScrollView``;
 const BackBtn = styled.TouchableOpacity`
   position: absolute;
   top: 20px;
@@ -273,20 +274,19 @@ const MembersContent = styled.View`
   margin-top: 15px;
 `;
 const Addmember = styled.TouchableOpacity``;
-const Comments = styled.SafeAreaView`
-  flex: 1;
+const Comments = styled.View`
+  /* height: 420px; */
 `;
 const CommentsTitle = styled(MembersTitle)`
   padding: 10px 15px 0 15px;
 `;
 const CommentsList = styled.FlatList`
   margin: 15px 0 40px 0;
-  /* margin внизу нужен, чтобы инпут не наезжал на FlatList */
   border-top-width: 1px;
   border-top-color: #e5e5e5;
 `;
-const FormWrapper = styled.SafeAreaView`
-  flex: 1;
+const Footer = styled.View`
+  width: 100%;
   position: absolute;
   bottom: 0;
   left: 0;
