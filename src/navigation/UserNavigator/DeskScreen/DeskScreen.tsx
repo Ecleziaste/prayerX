@@ -5,8 +5,8 @@ import {RootState} from '../../../store';
 import {Alert} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {
-  selectCheckedCardsIds,
-  selectUncheckedCardsIds,
+  selectCheckedCardsIdsByColumnId,
+  selectUncheckedCardsIdsByColumnId,
   selectCardsIdsByColumnId,
 } from '../../../store/cards/selectors';
 import {selectColumnById} from '../../../store/columns/selectors';
@@ -34,8 +34,12 @@ const DeskScreen: React.FC<Props> = ({
     selectCardsIdsByColumnId(state, id),
   )!;
 
-  const cardsAnswered = useSelector(selectCheckedCardsIds);
-  const cardsUnanswered = useSelector(selectUncheckedCardsIds);
+  const cardsAnswered = useSelector((state: RootState) =>
+    selectCheckedCardsIdsByColumnId(state, id),
+  )!;
+  const cardsUnanswered = useSelector((state: RootState) =>
+    selectUncheckedCardsIdsByColumnId(state, id),
+  )!;
 
   const [tab, setTab] = useState(true);
   const [myPrayers, setMyPrayres] = useState(true);
@@ -107,7 +111,6 @@ const DeskScreen: React.FC<Props> = ({
         </TabsContainer>
       </DeskScreenHeader>
       <InputAdd onSubmit={onSubmit} />
-
       {tab ? (
         <DeskScreenBody>
           {btnPushed ? (
@@ -126,7 +129,6 @@ const DeskScreen: React.FC<Props> = ({
             </View>
           ) : (
             <SafeAreaView>
-              <ButtonLong text={btnText} handlerFunc={() => handleBtnPush()} />
               <DeskScreenList
                 data={cardsIds}
                 renderItem={({item}: any) => <Task id={item} />}
@@ -149,7 +151,8 @@ const Container = styled.SafeAreaView`
   background: #ffffff;
   flex: 1;
   align-self: stretch;
-  align-items: center;
+  justify-content: flex-start;
+  /* align-items: flex-start; */
 `;
 const DeskScreenHeader = styled.View`
   width: 100%;
@@ -198,7 +201,6 @@ const SubscribedTab = styled.TouchableOpacity<{active: boolean}>`
   width: 50%;
   justify-content: center;
   align-items: center;
-
   border-bottom-width: 1px;
   border-bottom-color: ${props =>
     props.active ? 'rgba(114, 168, 188, 1)' : 'rgba(200, 200, 200, 1)'};
@@ -234,7 +236,6 @@ const SettingsIcon = styled.TouchableOpacity`
   right: 20px;
   top: 20px;
 `;
-
 const BackBtn = styled.TouchableOpacity`
   position: absolute;
   margin: 0 auto;
